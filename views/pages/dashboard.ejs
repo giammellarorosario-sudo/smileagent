@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <%- include('../partials/head') %>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark">
+<div class="relative flex min-h-screen w-full">
+  <%- include('../partials/sidebar', {currentPage: 'dashboard', studioNome: studioNome}) %>
+
+  <main class="flex-1 p-8 overflow-y-auto">
+    <div class="max-w-7xl mx-auto">
+      <!-- Header -->
+      <div class="mb-8">
+        <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">Dashboard</h1>
+        <p class="text-gray-600 dark:text-gray-400">Panoramica generale del tuo studio</p>
+      </div>
+
+      <!-- Stats Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <!-- Total Pazienti -->
+        <div class="bg-white dark:bg-gray-900 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+          <div class="flex items-center justify-between mb-4">
+            <span class="material-symbols-outlined text-primary text-3xl">group</span>
+            <span class="text-sm font-medium text-green-600 dark:text-green-400">+12%</span>
+          </div>
+          <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-1"><%= stats.totalPazienti %></h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400">Pazienti Totali</p>
+        </div>
+
+        <!-- Appuntamenti Oggi -->
+        <div class="bg-white dark:bg-gray-900 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+          <div class="flex items-center justify-between mb-4">
+            <span class="material-symbols-outlined text-primary text-3xl">today</span>
+            <span class="text-sm font-medium text-blue-600 dark:text-blue-400">Oggi</span>
+          </div>
+          <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-1"><%= stats.appuntamentiOggi %></h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400">Appuntamenti oggi</p>
+        </div>
+
+        <!-- Appuntamenti Settimana -->
+        <div class="bg-white dark:bg-gray-900 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+          <div class="flex items-center justify-between mb-4">
+            <span class="material-symbols-outlined text-primary text-3xl">calendar_month</span>
+            <span class="text-sm font-medium text-purple-600 dark:text-purple-400">Prossimi 7gg</span>
+          </div>
+          <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-1"><%= stats.appuntamentiSettimana %></h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400">Appuntamenti settimana</p>
+        </div>
+
+        <!-- Fatture Non Pagate -->
+        <div class="bg-white dark:bg-gray-900 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+          <div class="flex items-center justify-between mb-4">
+            <span class="material-symbols-outlined text-orange-600 text-3xl">receipt_long</span>
+            <span class="text-sm font-medium text-orange-600 dark:text-orange-400">Da incassare</span>
+          </div>
+          <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-1">€<%= stats.importoNonPagato.toFixed(0) %></h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400"><%= stats.fattureNonPagate %> fatture in sospeso</p>
+        </div>
+      </div>
+
+      <!-- Grid Layout -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Prossimi Appuntamenti -->
+        <div class="lg:col-span-2 bg-white dark:bg-gray-900 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+          <div class="flex items-center justify-between mb-6">
+            <h2 class="text-xl font-bold text-gray-900 dark:text-white">Prossimi Appuntamenti</h2>
+            <a href="/calendario" class="text-sm font-medium text-primary hover:underline">Vedi tutti</a>
+          </div>
+          <div class="space-y-4">
+            <% if (prossimiAppuntamenti.length === 0) { %>
+            <p class="text-gray-500 dark:text-gray-400 text-center py-8">Nessun appuntamento programmato</p>
+            <% } else { %>
+            <% prossimiAppuntamenti.forEach(app => {
+              const dataOra = new Date(app.data_ora);
+              const dataStr = dataOra.toLocaleDateString('it-IT', { day: '2-digit', month: 'short' });
+              const oraStr = dataOra.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
+            %>
+            <div class="flex items-center gap-4 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+              <div class="flex-shrink-0 text-center">
+                <p class="text-lg font-bold text-primary"><%= dataStr.split(' ')[0] %></p>
+                <p class="text-xs text-gray-600 dark:text-gray-400 uppercase"><%= dataStr.split(' ')[1] %></p>
+              </div>
+              <div class="flex-1">
+                <p class="font-semibold text-gray-900 dark:text-white"><%= app.nome %> <%= app.cognome %></p>
+                <p class="text-sm text-gray-600 dark:text-gray-400"><%= app.tipo_trattamento %></p>
+              </div>
+              <div class="text-right">
+                <p class="font-medium text-gray-900 dark:text-white"><%= oraStr %></p>
+                <p class="text-sm text-gray-600 dark:text-gray-400"><%= app.durata_minuti %> min</p>
+              </div>
+            </div>
+            <% }); %>
+            <% } %>
+          </div>
+        </div>
+
+        <!-- Ultimi Pazienti -->
+        <div class="bg-white dark:bg-gray-900 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+          <div class="flex items-center justify-between mb-6">
+            <h2 class="text-xl font-bold text-gray-900 dark:text-white">Ultimi Pazienti</h2>
+            <a href="/pazienti" class="text-sm font-medium text-primary hover:underline">Vedi tutti</a>
+          </div>
+          <div class="space-y-4">
+            <% ultimiPazienti.forEach(paz => { %>
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+                <span class="text-primary font-semibold"><%= paz.nome.charAt(0) %><%= paz.cognome.charAt(0) %></span>
+              </div>
+              <div class="flex-1 min-w-0">
+                <p class="font-medium text-gray-900 dark:text-white truncate"><%= paz.nome %> <%= paz.cognome %></p>
+                <p class="text-sm text-gray-600 dark:text-gray-400 truncate"><%= paz.telefono %></p>
+              </div>
+            </div>
+            <% }); %>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="mt-8 bg-gradient-to-r from-primary/10 to-purple-500/10 rounded-xl p-6 border border-primary/20">
+        <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Azioni Rapide</h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <a href="/chat" class="flex flex-col items-center gap-2 p-4 bg-white dark:bg-gray-900 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition">
+            <span class="material-symbols-outlined text-primary text-3xl fill">smart_toy</span>
+            <span class="text-sm font-medium text-gray-900 dark:text-white text-center">Chat AI</span>
+          </a>
+          <a href="/pazienti/new" class="flex flex-col items-center gap-2 p-4 bg-white dark:bg-gray-900 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition">
+            <span class="material-symbols-outlined text-primary text-3xl">person_add</span>
+            <span class="text-sm font-medium text-gray-900 dark:text-white text-center">Nuovo Paziente</span>
+          </a>
+          <a href="/calendario/new" class="flex flex-col items-center gap-2 p-4 bg-white dark:bg-gray-900 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition">
+            <span class="material-symbols-outlined text-primary text-3xl">event_available</span>
+            <span class="text-sm font-medium text-gray-900 dark:text-white text-center">Appuntamento</span>
+          </a>
+          <a href="/social" class="flex flex-col items-center gap-2 p-4 bg-white dark:bg-gray-900 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition">
+            <span class="material-symbols-outlined text-primary text-3xl">auto_awesome</span>
+            <span class="text-sm font-medium text-gray-900 dark:text-white text-center">Crea Post</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+</body>
+</html>

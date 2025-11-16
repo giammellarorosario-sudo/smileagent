@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Impostazioni - SmileAgent</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#0ea5e9',
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-gray-50 dark:bg-gray-800">
+  <div class="flex min-h-screen">
+    <%- include('../partials/sidebar', { currentPage, studioNome }) %>
+
+    <main class="flex-1 p-8">
+      <div class="max-w-4xl mx-auto">
+        <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-6">Impostazioni Studio</h1>
+
+        <!-- Informazioni Studio -->
+        <div class="bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-700 p-6 mb-6">
+          <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Informazioni Studio</h2>
+          <form id="studioForm" class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nome Studio</label>
+              <input type="text" name="nome" value="<%= studio.nome %>" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-800 dark:text-white">
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email</label>
+                <input type="email" value="<%= studio.email %>" disabled class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-800 dark:text-white opacity-50">
+                <p class="text-xs text-gray-500 mt-1">Email non modificabile</p>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Telefono</label>
+                <input type="tel" name="telefono" value="<%= studio.telefono || '' %>" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-800 dark:text-white">
+              </div>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Indirizzo</label>
+              <input type="text" name="indirizzo" value="<%= studio.indirizzo || '' %>" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-800 dark:text-white">
+            </div>
+            <div class="grid grid-cols-3 gap-4">
+              <div class="col-span-2">
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Città</label>
+                <input type="text" name="citta" value="<%= studio.citta || '' %>" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-800 dark:text-white">
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">CAP</label>
+                <input type="text" name="cap" value="<%= studio.cap || '' %>" maxlength="5" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-800 dark:text-white">
+              </div>
+            </div>
+            <div class="flex justify-end">
+              <button type="submit" class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary/90">Salva Modifiche</button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Piano e Billing -->
+        <div class="bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-700 p-6 mb-6">
+          <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Piano e Billing</h2>
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-lg font-semibold text-gray-900 dark:text-white">Piano Attuale: <span class="text-primary uppercase"><%= studio.piano %></span></p>
+              <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Registrato il <%= new Date(studio.data_registrazione).toLocaleDateString('it-IT') %></p>
+            </div>
+            <button class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700">Upgrade Piano</button>
+          </div>
+        </div>
+
+        <!-- Integrazioni AI -->
+        <div class="bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-700 p-6 mb-6">
+          <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Integrazioni AI</h2>
+          <div class="space-y-3">
+            <div class="flex items-center justify-between p-3 bg-green-50 dark:bg-green-900/20 rounded-lg">
+              <div class="flex items-center gap-3">
+                <span class="material-symbols-outlined text-green-600">check_circle</span>
+                <div>
+                  <p class="font-semibold text-gray-900 dark:text-white">Google Gemini</p>
+                  <p class="text-xs text-gray-600 dark:text-gray-400">Chat AI & Vision - Attivo</p>
+                </div>
+              </div>
+              <span class="text-xs bg-green-600 text-white px-2 py-1 rounded">ATTIVO</span>
+            </div>
+            <div class="flex items-center justify-between p-3 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg">
+              <div class="flex items-center gap-3">
+                <span class="material-symbols-outlined text-yellow-600">warning</span>
+                <div>
+                  <p class="font-semibold text-gray-900 dark:text-white">Google Imagen 3</p>
+                  <p class="text-xs text-gray-600 dark:text-gray-400">Richiede billing attivo</p>
+                </div>
+              </div>
+              <a href="https://console.developers.google.com/billing/enable?project=useful-ward-478319-k0" target="_blank" class="text-xs bg-yellow-600 text-white px-2 py-1 rounded hover:bg-yellow-700">ABILITA BILLING</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Preferenze -->
+        <div class="bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
+          <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Preferenze</h2>
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="font-semibold text-gray-900 dark:text-white">Notifiche Email</p>
+                <p class="text-sm text-gray-600 dark:text-gray-400">Ricevi notifiche per nuovi appuntamenti</p>
+              </div>
+              <label class="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" checked class="sr-only peer">
+                <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 dark:peer-focus:ring-primary/40 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-primary"></div>
+              </label>
+            </div>
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="font-semibold text-gray-900 dark:text-white">Promemoria Automatici</p>
+                <p class="text-sm text-gray-600 dark:text-gray-400">Invia promemoria ai pazienti 24h prima</p>
+              </div>
+              <label class="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" checked class="sr-only peer">
+                <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 dark:peer-focus:ring-primary/40 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-primary"></div>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    document.getElementById('studioForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      const data = Object.fromEntries(formData);
+
+      try {
+        const res = await fetch('/impostazioni/update', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+
+        const result = await res.json();
+
+        if (result.success) {
+          alert('Impostazioni aggiornate con successo!');
+        } else {
+          alert('Errore: ' + (result.error || 'Errore sconosciuto'));
+        }
+      } catch (error) {
+        console.error('Errore:', error);
+        alert('Errore di connessione');
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: smileagent
+    env: node
+    region: frankfurt
+    plan: free
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: GEMINI_API_KEY
+        value: AIzaSyBJZnNc0t2LC4fZY6Feyr7NDdPIDzZnF8w
+      - key: SESSION_SECRET
+        generateValue: true
+      - key: PORT
+        value: 3000
+      - key: AI_MODEL
+        value: gemini-2.5-flash
+      - key: RATE_LIMIT_PER_MINUTE
+        value: 10
+      - key: RATE_LIMIT_PER_DAY
+        value: 1000

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html class="light" lang="it">
+<head>
+  <%- include('../partials/head') %>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display">
+<div class="relative flex h-auto min-h-screen w-full flex-col">
+<div class="layout-container flex h-full grow flex-col">
+<div class="flex flex-1 justify-center py-5">
+<div class="layout-content-container flex flex-col w-full max-w-6xl flex-1">
+<!-- TopNavBar -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-gray-200 dark:border-gray-700 px-10 py-3 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm sticky top-0 z-50">
+<div class="flex items-center gap-4 text-gray-900 dark:text-white">
+<img src="/images/logo.png" alt="SmileAgent Logo" class="w-10 h-10 object-contain">
+<h2 class="text-lg font-bold leading-tight tracking-[-0.015em] text-gray-900 dark:text-white">SmileAgent</h2>
+</div>
+<div class="flex flex-1 justify-end gap-8 items-center">
+<div class="hidden md:flex items-center gap-9">
+<a class="text-sm font-medium leading-normal text-gray-700 dark:text-gray-300 hover:text-primary" href="#features">Funzionalità</a>
+<a class="text-sm font-medium leading-normal text-gray-700 dark:text-gray-300 hover:text-primary" href="#pricing">Prezzi</a>
+<a class="text-sm font-medium leading-normal text-gray-700 dark:text-gray-300 hover:text-primary" href="/login">Accedi</a>
+</div>
+<a href="/login" class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] hover:opacity-90 transition-opacity">
+<span class="truncate">Inizia Gratis</span>
+</a>
+</div>
+</header>
+<main class="flex-grow">
+<!-- Hero Section -->
+<div class="@container py-16 md:py-24">
+<div class="flex flex-col gap-10 px-4 py-10 @[864px]:flex-row @[864px]:items-center">
+<div class="flex flex-col gap-6 @[480px]:min-w-[400px] @[480px]:gap-8 @[864px]:justify-center flex-1">
+<div class="flex flex-col gap-4 text-left">
+<h1 class="text-gray-900 dark:text-white text-4xl font-black leading-tight tracking-[-0.033em] @[480px]:text-5xl">
+Automatizza il Tuo Studio Dentistico con l'Intelligenza Artificiale
+</h1>
+<h2 class="text-gray-700 dark:text-gray-300 text-base font-normal leading-normal @[480px]:text-lg">
+Risparmia tempo, acquisisci più pazienti e migliora la comunicazione con la nostra piattaforma AI. Gestiamo appuntamenti, social media e comunicazioni per te.
+</h2>
+</div>
+<a href="/login" class="flex w-fit min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 @[480px]:h-12 @[480px]:px-5 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] @[480px]:text-base hover:opacity-90 transition-opacity">
+<span class="truncate">Inizia Gratis - 14 Giorni di Prova</span>
+</a>
+</div>
+<div class="w-full bg-gradient-to-br from-primary/20 to-purple-500/20 bg-center bg-no-repeat aspect-video bg-cover rounded-xl @[480px]:h-auto @[480px]:min-w-[400px] @[864px]:w-full flex-1 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" style="font-size: 120px; font-variation-settings: 'FILL' 1;">health_and_safety</span>
+</div>
+</div>
+</div>
+<!-- Features -->
+<div id="features" class="flex flex-col gap-10 px-4 py-10 @container">
+<div class="flex flex-col gap-4 text-center items-center">
+<h2 class="text-gray-900 dark:text-white text-3xl font-bold">Funzionalità Chiave</h2>
+<p class="text-gray-700 dark:text-gray-300 text-base max-w-3xl">
+Scopri come SmileAgent rivoluziona la gestione del tuo studio dentistico
+</p>
+</div>
+<div class="grid grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-6 p-0">
+<div class="flex flex-1 gap-4 rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900/50 p-6 flex-col">
+<span class="material-symbols-outlined text-primary text-3xl">smart_toy</span>
+<div class="flex flex-col gap-1">
+<h3 class="text-gray-900 dark:text-white text-lg font-bold">Chat AI Esperta</h3>
+<p class="text-gray-600 dark:text-gray-400 text-sm">
+Assistente AI specializzato in odontoiatria italiana, sempre pronto ad aiutarti con consigli clinici e gestionali.
+</p>
+</div>
+</div>
+<div class="flex flex-1 gap-4 rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900/50 p-6 flex-col">
+<span class="material-symbols-outlined text-primary text-3xl">calendar_month</span>
+<div class="flex flex-col gap-1">
+<h3 class="text-gray-900 dark:text-white text-lg font-bold">Gestione Appuntamenti</h3>
+<p class="text-gray-600 dark:text-gray-400 text-sm">
+Calendario intelligente con promemoria automatici, riducendo le mancate presentazioni del 70%.
+</p>
+</div>
+</div>
+<div class="flex flex-1 gap-4 rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900/50 p-6 flex-col">
+<span class="material-symbols-outlined text-primary text-3xl">public</span>
+<div class="flex flex-col gap-1">
+<h3 class="text-gray-900 dark:text-white text-lg font-bold">Social Media Automatico</h3>
+<p class="text-gray-600 dark:text-gray-400 text-sm">
+L'AI genera e programma contenuti professionali per i tuoi canali social, mantenendo i pazienti coinvolti.
+</p>
+</div>
+</div>
+<div class="flex flex-1 gap-4 rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900/50 p-6 flex-col">
+<span class="material-symbols-outlined text-primary text-3xl">analytics</span>
+<div class="flex flex-col gap-1">
+<h3 class="text-gray-900 dark:text-white text-lg font-bold">Analytics Avanzate</h3>
+<p class="text-gray-600 dark:text-gray-400 text-sm">
+Dashboard completo con KPI, fatturato, pazienti attivi e molto altro per decisioni data-driven.
+</p>
+</div>
+</div>
+</div>
+</div>
+<!-- CTA Final -->
+<div class="bg-primary/10 dark:bg-primary/20 rounded-xl mx-4 my-16 md:my-24 p-10 md:p-16 text-center">
+<h2 class="text-gray-900 dark:text-white text-3xl font-bold">Pronto a Trasformare il Tuo Studio?</h2>
+<p class="text-gray-700 dark:text-gray-300 mt-4 max-w-xl mx-auto">
+Unisciti a centinaia di dentisti che hanno già automatizzato il loro studio con SmileAgent.
+</p>
+<a href="/login" class="mt-8 inline-flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-5 bg-primary text-white text-base font-bold leading-normal tracking-[0.015em] hover:opacity-90 transition-opacity">
+<span class="truncate">Inizia Ora - È Gratis</span>
+</a>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-background-light dark:bg-background-dark border-t border-gray-200 dark:border-gray-800 mt-auto">
+<div class="mx-auto max-w-6xl px-4 py-8">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<img src="/images/logo.png" alt="SmileAgent Logo" class="w-8 h-8 object-contain">
+<span class="font-bold text-lg text-gray-900 dark:text-white">SmileAgent</span>
+</div>
+<p class="text-sm text-gray-500 dark:text-gray-400">© 2025 SmileAgent. Tutti i diritti riservati.</p>
+</div>
+</div>
+</footer>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

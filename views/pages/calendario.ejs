@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calendario - SmileAgent</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#0ea5e9',
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-gray-50 dark:bg-gray-800">
+  <div class="flex min-h-screen">
+    <%- include('../partials/sidebar', { currentPage, studioNome }) %>
+
+    <main class="flex-1 p-8">
+      <div class="max-w-7xl mx-auto">
+        <!-- Header -->
+        <div class="flex justify-between items-center mb-6">
+          <div>
+            <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Calendario Appuntamenti</h1>
+            <p class="text-gray-600 dark:text-gray-400 mt-1">Gestisci gli appuntamenti del tuo studio</p>
+          </div>
+          <button onclick="openNewAppointmentModal()" class="btn btn-primary px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 flex items-center gap-2">
+            <span class="material-symbols-outlined">add</span>
+            Nuovo Appuntamento
+          </button>
+        </div>
+
+        <!-- Statistiche Oggi -->
+        <div class="grid grid-cols-4 gap-4 mb-6">
+          <div class="bg-white dark:bg-gray-900 rounded-lg p-4 border border-gray-200 dark:border-gray-700">
+            <div class="flex items-center gap-3">
+              <span class="material-symbols-outlined text-blue-500 text-3xl">event</span>
+              <div>
+                <p class="text-sm text-gray-600 dark:text-gray-400">Totale Oggi</p>
+                <p class="text-2xl font-bold text-gray-900 dark:text-white"><%= statsOggi.totale || 0 %></p>
+              </div>
+            </div>
+          </div>
+          <div class="bg-white dark:bg-gray-900 rounded-lg p-4 border border-gray-200 dark:border-gray-700">
+            <div class="flex items-center gap-3">
+              <span class="material-symbols-outlined text-green-500 text-3xl">check_circle</span>
+              <div>
+                <p class="text-sm text-gray-600 dark:text-gray-400">Confermati</p>
+                <p class="text-2xl font-bold text-gray-900 dark:text-white"><%= statsOggi.confermati || 0 %></p>
+              </div>
+            </div>
+          </div>
+          <div class="bg-white dark:bg-gray-900 rounded-lg p-4 border border-gray-200 dark:border-gray-700">
+            <div class="flex items-center gap-3">
+              <span class="material-symbols-outlined text-primary text-3xl">done_all</span>
+              <div>
+                <p class="text-sm text-gray-600 dark:text-gray-400">Completati</p>
+                <p class="text-2xl font-bold text-gray-900 dark:text-white"><%= statsOggi.completati || 0 %></p>
+              </div>
+            </div>
+          </div>
+          <div class="bg-white dark:bg-gray-900 rounded-lg p-4 border border-gray-200 dark:border-gray-700">
+            <div class="flex items-center gap-3">
+              <span class="material-symbols-outlined text-red-500 text-3xl">cancel</span>
+              <div>
+                <p class="text-sm text-gray-600 dark:text-gray-400">Cancellati</p>
+                <p class="text-2xl font-bold text-gray-900 dark:text-white"><%= statsOggi.cancellati || 0 %></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Lista Appuntamenti -->
+        <div class="bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-700">
+          <div class="p-6">
+            <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Appuntamenti del Giorno</h2>
+
+            <% if (appuntamenti.length === 0) { %>
+              <div class="text-center py-12">
+                <span class="material-symbols-outlined text-gray-400 text-6xl">event_busy</span>
+                <p class="text-gray-600 dark:text-gray-400 mt-4">Nessun appuntamento per questo periodo</p>
+                <button onclick="openNewAppointmentModal()" class="mt-4 text-primary hover:underline">Crea il primo appuntamento</button>
+              </div>
+            <% } else { %>
+              <div class="space-y-3">
+                <% appuntamenti.forEach(app => {
+                  const dataOra = new Date(app.data_ora);
+                  const ora = dataOra.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
+                  const data = dataOra.toLocaleDateString('it-IT');
+
+                  let statoClass = 'bg-gray-100 text-gray-800';
+                  let statoIcon = 'schedule';
+                  if (app.stato === 'confermato') {
+                    statoClass = 'bg-green-100 text-green-800';
+                    statoIcon = 'check_circle';
+                  } else if (app.stato === 'completato') {
+                    statoClass = 'bg-blue-100 text-blue-800';
+                    statoIcon = 'done_all';
+                  } else if (app.stato === 'cancellato') {
+                    statoClass = 'bg-red-100 text-red-800';
+                    statoIcon = 'cancel';
+                  }
+                %>
+                  <div class="flex items-center gap-4 p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+                    <div class="flex-shrink-0 w-20 text-center">
+                      <p class="text-2xl font-bold text-gray-900 dark:text-white"><%= ora %></p>
+                      <p class="text-xs text-gray-600 dark:text-gray-400"><%= data %></p>
+                    </div>
+                    <div class="flex-1">
+                      <h3 class="font-semibold text-gray-900 dark:text-white"><%= app.paziente_cognome %> <%= app.paziente_nome %></h3>
+                      <div class="flex items-center gap-4 mt-1 text-sm text-gray-600 dark:text-gray-400">
+                        <span class="flex items-center gap-1">
+                          <span class="material-symbols-outlined text-sm">phone</span>
+                          <%= app.paziente_telefono || 'N/A' %>
+                        </span>
+                        <% if (app.dentista_nome) { %>
+                          <span class="flex items-center gap-1">
+                            <span class="material-symbols-outlined text-sm">person</span>
+                            Dr. <%= app.dentista_cognome %>
+                          </span>
+                        <% } %>
+                        <% if (app.tipo_trattamento) { %>
+                          <span class="flex items-center gap-1">
+                            <span class="material-symbols-outlined text-sm">medical_services</span>
+                            <%= app.tipo_trattamento %>
+                          </span>
+                        <% } %>
+                        <span class="flex items-center gap-1">
+                          <span class="material-symbols-outlined text-sm">schedule</span>
+                          <%= app.durata_minuti %> min
+                        </span>
+                      </div>
+                      <% if (app.note) { %>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mt-2"><%= app.note %></p>
+                      <% } %>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <span class="<%= statoClass %> px-3 py-1 rounded-full text-xs font-medium flex items-center gap-1">
+                        <span class="material-symbols-outlined text-sm"><%= statoIcon %></span>
+                        <%= app.stato %>
+                      </span>
+                      <button onclick="editAppointment(<%= app.id %>)" class="p-2 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg">
+                        <span class="material-symbols-outlined text-gray-600">edit</span>
+                      </button>
+                      <button onclick="deleteAppointment(<%= app.id %>)" class="p-2 hover:bg-red-100 rounded-lg">
+                        <span class="material-symbols-outlined text-red-600">delete</span>
+                      </button>
+                    </div>
+                  </div>
+                <% }) %>
+              </div>
+            <% } %>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Modal Nuovo Appuntamento -->
+  <div id="newAppointmentModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white dark:bg-gray-900 rounded-lg p-6 w-full max-w-md">
+      <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Nuovo Appuntamento</h2>
+      <form id="newAppointmentForm" class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Paziente *</label>
+          <select name="paziente_id" required class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-800 dark:text-white">
+            <option value="">Seleziona paziente</option>
+            <% pazienti.forEach(p => { %>
+              <option value="<%= p.id %>"><%= p.cognome %> <%= p.nome %></option>
+            <% }) %>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Dentista</label>
+          <select name="dentista_id" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-800 dark:text-white">
+            <option value="">Nessuno</option>
+            <% teamMembers.forEach(t => { %>
+              <option value="<%= t.id %>">Dr. <%= t.cognome %> <%= t.nome %></option>
+            <% }) %>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Data e Ora *</label>
+          <input type="datetime-local" name="data_ora" required class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-800 dark:text-white">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Durata (minuti)</label>
+          <input type="number" name="durata_minuti" value="30" min="15" step="15" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-800 dark:text-white">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Tipo Trattamento</label>
+          <input type="text" name="tipo_trattamento" placeholder="Es: Pulizia, Otturazione..." class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-800 dark:text-white">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Note</label>
+          <textarea name="note" rows="3" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-800 dark:text-white"></textarea>
+        </div>
+        <div class="flex gap-2">
+          <button type="submit" class="flex-1 bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary/90">Crea Appuntamento</button>
+          <button type="button" onclick="closeNewAppointmentModal()" class="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800">Annulla</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    function openNewAppointmentModal() {
+      document.getElementById('newAppointmentModal').classList.remove('hidden');
+    }
+
+    function closeNewAppointmentModal() {
+      document.getElementById('newAppointmentModal').classList.add('hidden');
+      document.getElementById('newAppointmentForm').reset();
+    }
+
+    document.getElementById('newAppointmentForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      const data = Object.fromEntries(formData);
+
+      try {
+        const res = await fetch('/calendario/nuovo', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+
+        const result = await res.json();
+
+        if (result.success) {
+          alert('Appuntamento creato con successo!');
+          location.reload();
+        } else {
+          alert('Errore: ' + (result.error || 'Errore sconosciuto'));
+        }
+      } catch (error) {
+        console.error('Errore:', error);
+        alert('Errore di connessione');
+      }
+    });
+
+    async function deleteAppointment(id) {
+      if (!confirm('Vuoi cancellare questo appuntamento?')) return;
+
+      try {
+        const res = await fetch(`/calendario/${id}`, { method: 'DELETE' });
+        const result = await res.json();
+
+        if (result.success) {
+          alert('Appuntamento cancellato');
+          location.reload();
+        } else {
+          alert('Errore: ' + (result.error || 'Errore sconosciuto'));
+        }
+      } catch (error) {
+        console.error('Errore:', error);
+        alert('Errore di connessione');
+      }
+    }
+
+    function editAppointment(id) {
+      alert('Funzione modifica in sviluppo. ID: ' + id);
+    }
+  </script>
+</body>
+</html>

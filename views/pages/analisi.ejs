@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="it" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.20/dist/full.min.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+</head>
+<body class="bg-gray-50 dark:bg-gray-900">
+
+  <div class="flex h-screen overflow-hidden">
+    <%- include('../partials/sidebar') %>
+
+    <div class="flex-1 overflow-auto">
+      <main class="p-6">
+        <!-- Header con Quota Info -->
+        <div class="mb-6">
+          <div class="flex justify-between items-center mb-4">
+            <div>
+              <h1 class="text-3xl font-bold text-gray-900 dark:text-white">🦷 Analisi Radiografiche AI</h1>
+              <p class="text-gray-600 dark:text-gray-400 mt-1">Analisi automatica con Gemini Vision + Generazione 2D</p>
+            </div>
+            <button onclick="openUploadModal()" class="btn btn-primary">
+              <span class="material-symbols-outlined">add_photo_alternate</span>
+              Nuova Analisi
+            </button>
+          </div>
+
+          <!-- Quota Card -->
+          <div class="alert alert-success">
+            <span class="material-symbols-outlined">all_inclusive</span>
+            <div>
+              <h3 class="font-bold">🔓 Analisi Illimitate (Fase Test)</h3>
+              <div class="text-sm">
+                Puoi effettuare tutte le analisi che vuoi. Free tier Gemini Vision: 1.500/giorno
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Storico Analisi -->
+        <div class="card bg-white dark:bg-gray-800 shadow-lg">
+          <div class="card-body">
+            <h2 class="card-title mb-4">Storico Analisi</h2>
+
+            <% if (analisi.length === 0) { %>
+              <div class="text-center py-12">
+                <span class="material-symbols-outlined text-9xl text-gray-300">analytics</span>
+                <p class="text-gray-500 mt-4">Nessuna analisi effettuata</p>
+                <button onclick="openUploadModal()" class="btn btn-primary mt-4">
+                  Inizia la prima analisi
+                </button>
+              </div>
+            <% } else { %>
+              <div class="overflow-x-auto">
+                <table class="table w-full">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Data</th>
+                      <th>Paziente</th>
+                      <th>Score Salute</th>
+                      <th>Problemi</th>
+                      <th>Stato</th>
+                      <th>Azioni</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% analisi.forEach(a => { %>
+                      <tr>
+                        <td>#<%= a.id %></td>
+                        <td><%= new Date(a.data_creazione).toLocaleDateString('it-IT') %></td>
+                        <td>
+                          <% if (a.paziente_nome) { %>
+                            <%= a.paziente_nome %> <%= a.paziente_cognome %>
+                          <% } else { %>
+                            <span class="text-gray-400">Non specificato</span>
+                          <% } %>
+                        </td>
+                        <td>
+                          <% if (a.score_salute) { %>
+                            <div class="flex items-center gap-2">
+                              <div class="radial-progress text-sm <%= a.score_salute >= 70 ? 'text-success' : a.score_salute >= 50 ? 'text-warning' : 'text-error' %>"
+                                   style="--value:<%= a.score_salute %>;">
+                                <%= a.score_salute %>
+                              </div>
+                            </div>
+                          <% } else { %>
+                            -
+                          <% } %>
+                        </td>
+                        <td>
+                          <% const problemi = a.problemi_rilevati ? JSON.parse(a.problemi_rilevati) : []; %>
+                          <span class="badge <%= problemi.length > 0 ? 'badge-warning' : 'badge-success' %>">
+                            <%= problemi.length %> problemi
+                          </span>
+                        </td>
+                        <td>
+                          <span class="badge <%= a.stato === 'completata' ? 'badge-success' : a.stato === 'errore' ? 'badge-error' : 'badge-info' %>">
+                            <%= a.stato %>
+                          </span>
+                        </td>
+                        <td>
+                          <div class="flex gap-2">
+                            <a href="/analisi/<%= a.id %>" class="btn btn-sm btn-ghost">
+                              <span class="material-symbols-outlined">visibility</span>
+                            </a>
+                            <button onclick="deleteAnalisi(<%= a.id %>)" class="btn btn-sm btn-ghost text-error">
+                              <span class="material-symbols-outlined">delete</span>
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    <% }); %>
+                  </tbody>
+                </table>
+              </div>
+            <% } %>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Upload Modal -->
+  <dialog id="uploadModal" class="modal">
+    <div class="modal-box w-11/12 max-w-2xl">
+      <h3 class="font-bold text-lg mb-4">🦷 Nuova Analisi Radiografica</h3>
+
+      <form id="uploadForm" enctype="multipart/form-data">
+        <div class="form-control mb-4">
+          <label class="label">
+            <span class="label-text">Carica Immagini (max 4)</span>
+          </label>
+          <input type="file" name="immagini" id="fileInput" accept="image/jpeg,image/png,image/webp" multiple required
+                 class="file-input file-input-bordered w-full" />
+          <label class="label">
+            <span class="label-text-alt">Radiografie panoramiche, foto intraorali, foto sorriso</span>
+          </label>
+        </div>
+
+        <div id="preview" class="grid grid-cols-2 gap-2 mb-4"></div>
+
+        <div class="form-control mb-4">
+          <label class="label">
+            <span class="label-text">Note aggiuntive (opzionale)</span>
+          </label>
+          <textarea name="note" class="textarea textarea-bordered h-24" placeholder="Es: Paziente lamenta dolore al dente 36..."></textarea>
+        </div>
+
+        <div class="modal-action">
+          <button type="button" onclick="closeUploadModal()" class="btn">Annulla</button>
+          <button type="submit" class="btn btn-primary" id="submitBtn">
+            <span class="material-symbols-outlined">analytics</span>
+            Analizza con AI
+          </button>
+        </div>
+      </form>
+
+      <div id="progressDiv" class="hidden mt-4">
+        <progress class="progress progress-primary w-full"></progress>
+        <p class="text-sm text-center mt-2">Analisi in corso...</p>
+      </div>
+    </div>
+    <form method="dialog" class="modal-backdrop">
+      <button>close</button>
+    </form>
+  </dialog>
+
+  <script>
+    function openUploadModal() {
+      document.getElementById('uploadModal').showModal();
+    }
+
+    function closeUploadModal() {
+      document.getElementById('uploadModal').close();
+      document.getElementById('uploadForm').reset();
+      document.getElementById('preview').innerHTML = '';
+    }
+
+    // Preview immagini
+    document.getElementById('fileInput').addEventListener('change', (e) => {
+      const preview = document.getElementById('preview');
+      preview.innerHTML = '';
+
+      Array.from(e.target.files).slice(0, 4).forEach(file => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const img = document.createElement('img');
+          img.src = e.target.result;
+          img.className = 'w-full h-32 object-cover rounded';
+          preview.appendChild(img);
+        };
+        reader.readAsDataURL(file);
+      });
+    });
+
+    // Submit form
+    document.getElementById('uploadForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const formData = new FormData(e.target);
+      const submitBtn = document.getElementById('submitBtn');
+      const progressDiv = document.getElementById('progressDiv');
+
+      submitBtn.disabled = true;
+      progressDiv.classList.remove('hidden');
+
+      try {
+        const response = await fetch('/analisi/nuova', {
+          method: 'POST',
+          body: formData
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          alert('✅ Analisi completata con successo!');
+          window.location.href = `/analisi/${data.analisiId}`;
+        } else {
+          alert('❌ Errore: ' + data.message);
+        }
+      } catch (error) {
+        alert('❌ Errore durante l\'analisi');
+        console.error(error);
+      } finally {
+        submitBtn.disabled = false;
+        progressDiv.classList.add('hidden');
+      }
+    });
+
+    async function deleteAnalisi(id) {
+      if (!confirm('Eliminare questa analisi?')) return;
+
+      try {
+        const response = await fetch(`/analisi/${id}`, { method: 'DELETE' });
+        if (response.ok) {
+          location.reload();
+        } else {
+          alert('Errore eliminazione');
+        }
+      } catch (error) {
+        alert('Errore eliminazione');
+      }
+    }
+  </script>
+
+</body>
+</html>

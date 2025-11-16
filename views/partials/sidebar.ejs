@@ -1,0 +1,60 @@
+<aside class="sticky top-0 h-screen flex flex-col bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-700 p-4 font-display w-64">
+  <div class="flex flex-col gap-4">
+    <div class="flex items-center gap-3">
+      <div class="flex-shrink-0">
+        <img src="/images/logo.png" alt="SmileAgent Logo" class="w-20 h-20 object-contain">
+      </div>
+      <div class="flex flex-col">
+        <h1 class="text-gray-900 dark:text-white text-base font-bold leading-normal">SmileAgent</h1>
+        <p class="text-gray-600 dark:text-gray-400 text-sm font-normal leading-normal">AI per Dentisti</p>
+      </div>
+    </div>
+    <nav class="flex flex-col gap-2 mt-4">
+      <a class="flex items-center gap-3 px-3 py-2 rounded-lg <%= currentPage === 'dashboard' ? 'bg-primary/10 text-primary' : 'hover:bg-primary/10 transition-colors text-gray-600 dark:text-gray-300 hover:text-primary' %>" href="/dashboard">
+        <span class="material-symbols-outlined text-2xl <%= currentPage === 'dashboard' ? 'fill' : '' %>">dashboard</span>
+        <p class="text-sm font-semibold leading-normal">Dashboard</p>
+      </a>
+      <a class="flex items-center gap-3 px-3 py-2 rounded-lg <%= currentPage === 'calendario' ? 'bg-primary/10 text-primary' : 'hover:bg-primary/10 transition-colors text-gray-600 dark:text-gray-300 hover:text-primary' %>" href="/calendario">
+        <span class="material-symbols-outlined text-2xl">calendar_month</span>
+        <p class="text-sm font-medium leading-normal">Calendario</p>
+      </a>
+      <a class="flex items-center gap-3 px-3 py-2 rounded-lg <%= currentPage === 'pazienti' ? 'bg-primary/10 text-primary' : 'hover:bg-primary/10 transition-colors text-gray-600 dark:text-gray-300 hover:text-primary' %>" href="/pazienti">
+        <span class="material-symbols-outlined text-2xl">group</span>
+        <p class="text-sm font-medium leading-normal">Pazienti</p>
+      </a>
+      <a class="flex items-center gap-3 px-3 py-2 rounded-lg <%= currentPage === 'chat' ? 'bg-primary/10 text-primary' : 'hover:bg-primary/10 transition-colors text-gray-600 dark:text-gray-300 hover:text-primary' %>" href="/chat">
+        <span class="material-symbols-outlined text-2xl <%= currentPage === 'chat' ? 'fill' : '' %>">smart_toy</span>
+        <p class="text-sm font-medium leading-normal">Chat AI</p>
+      </a>
+      <a class="flex items-center gap-3 px-3 py-2 rounded-lg <%= currentPage === 'analisi' ? 'bg-primary/10 text-primary' : 'hover:bg-primary/10 transition-colors text-gray-600 dark:text-gray-300 hover:text-primary' %>" href="/analisi">
+        <span class="material-symbols-outlined text-2xl <%= currentPage === 'analisi' ? 'fill' : '' %>">analytics</span>
+        <p class="text-sm font-medium leading-normal">Analisi AI</p>
+      </a>
+      <a class="flex items-center gap-3 px-3 py-2 rounded-lg <%= currentPage === 'messaggi' ? 'bg-primary/10 text-primary' : 'hover:bg-primary/10 transition-colors text-gray-600 dark:text-gray-300 hover:text-primary' %>" href="/messaggi">
+        <span class="material-symbols-outlined text-2xl">chat_bubble</span>
+        <p class="text-sm font-medium leading-normal">Messaggi</p>
+      </a>
+      <a class="flex items-center gap-3 px-3 py-2 rounded-lg <%= currentPage === 'social' ? 'bg-primary/10 text-primary' : 'hover:bg-primary/10 transition-colors text-gray-600 dark:text-gray-300 hover:text-primary' %>" href="/social">
+        <span class="material-symbols-outlined text-2xl">public</span>
+        <p class="text-sm font-medium leading-normal">Social Media</p>
+      </a>
+      <a class="flex items-center gap-3 px-3 py-2 rounded-lg <%= currentPage === 'analytics' ? 'bg-primary/10 text-primary' : 'hover:bg-primary/10 transition-colors text-gray-600 dark:text-gray-300 hover:text-primary' %>" href="/analytics">
+        <span class="material-symbols-outlined text-2xl">bar_chart</span>
+        <p class="text-sm font-medium leading-normal">Analytics</p>
+      </a>
+    </nav>
+  </div>
+  <div class="mt-auto flex flex-col gap-2">
+    <div class="border-t border-gray-200 dark:border-gray-700 pt-4">
+      <p class="text-xs text-gray-500 dark:text-gray-400 mb-2"><%= studioNome %></p>
+    </div>
+    <a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-primary/10 transition-colors text-gray-600 dark:text-gray-300 hover:text-primary" href="/impostazioni">
+      <span class="material-symbols-outlined text-2xl">settings</span>
+      <p class="text-sm font-medium leading-normal">Impostazioni</p>
+    </a>
+    <a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-red-100 transition-colors text-gray-600 dark:text-gray-300 hover:text-red-600" href="/logout">
+      <span class="material-symbols-outlined text-2xl">logout</span>
+      <p class="text-sm font-medium leading-normal">Esci</p>
+    </a>
+  </div>
+</aside>

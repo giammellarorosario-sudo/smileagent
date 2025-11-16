@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Messaggi - SmileAgent</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#0ea5e9',
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-gray-50 dark:bg-gray-800">
+  <div class="flex min-h-screen">
+    <%- include('../partials/sidebar', { currentPage, studioNome }) %>
+
+    <main class="flex-1 p-8">
+      <div class="max-w-7xl mx-auto">
+        <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-6">Messaggi</h1>
+
+        <div class="bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-700 p-12 text-center">
+          <span class="material-symbols-outlined text-gray-400 text-6xl">chat_bubble</span>
+          <h2 class="text-xl font-bold text-gray-900 dark:text-white mt-4">Sistema Messaggi</h2>
+          <p class="text-gray-600 dark:text-gray-400 mt-2">Comunicazione centralizzata con pazienti via WhatsApp, SMS ed Email</p>
+          <div class="mt-6 flex gap-4 justify-center">
+            <div class="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg">
+              <span class="material-symbols-outlined text-green-600 text-3xl">chat</span>
+              <p class="text-sm text-gray-700 dark:text-gray-300 mt-2">WhatsApp</p>
+            </div>
+            <div class="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
+              <span class="material-symbols-outlined text-blue-600 text-3xl">sms</span>
+              <p class="text-sm text-gray-700 dark:text-gray-300 mt-2">SMS</p>
+            </div>
+            <div class="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg">
+              <span class="material-symbols-outlined text-purple-600 text-3xl">email</span>
+              <p class="text-sm text-gray-700 dark:text-gray-300 mt-2">Email</p>
+            </div>
+          </div>
+          <p class="text-sm text-primary mt-6">🚀 In sviluppo - Disponibile prossimamente</p>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

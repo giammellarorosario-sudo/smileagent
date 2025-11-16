@@ -1,0 +1,32 @@
+# Dependencies
+node_modules/
+
+# Environment
+.env.local
+.env.development
+
+# Database
+data/*.db
+data/*.db-journal
+
+# Logs
+*.log
+logs/
+
+# Uploads
+uploads/*
+!uploads/.gitkeep
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Test files
+test-*.js
+
+# Archives
+*.zip
