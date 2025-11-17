@@ -27,6 +27,21 @@ const PORT = process.env.PORT || 3000;
 // Inizializza database
 initializeDatabase();
 
+// Auto-seed se database vuoto (primo avvio)
+const db = require('./config/database').db;
+try {
+  const studioCount = db.prepare('SELECT COUNT(*) as count FROM studios').get();
+  if (studioCount.count === 0) {
+    console.log('🌱 Database vuoto - esecuzione seed automatico...');
+    require('./utils/seed');
+    console.log('✅ Seed completato! Credenziali: studio@dentalrossi.it / demo123');
+  } else {
+    console.log(`✅ Database già popolato (${studioCount.count} studi trovati)`);
+  }
+} catch (error) {
+  console.error('⚠️ Errore controllo/seed database:', error.message);
+}
+
 // View engine
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
