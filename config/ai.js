@@ -388,7 +388,7 @@ async function generateDentalImage(analisiData) {
 
     // Configurazione Vertex AI
     const VERTEX_PROJECT_ID = 'useful-ward-478319-k0';
-    const VERTEX_LOCATION = 'us-central1';
+    const VERTEX_LOCATION = 'europe-west8'; // Milano, Italia - GDPR compliant
     const VERTEX_CREDENTIALS_PATH = path.join(__dirname, 'vertex-credentials.json');
     // Costruisci prompt per generazione
     const prompt = `Create a professional 2D dental diagram showing:
@@ -519,7 +519,7 @@ async function generateSocialImage(topic, style = 'sorriso') {
 
     // Configurazione Vertex AI
     const VERTEX_PROJECT_ID = 'useful-ward-478319-k0';
-    const VERTEX_LOCATION = 'us-central1';
+    const VERTEX_LOCATION = 'europe-west8'; // Milano, Italia - GDPR compliant
     const VERTEX_CREDENTIALS_PATH = path.join(__dirname, 'vertex-credentials.json');
 
     // Prompt templates per diversi stili

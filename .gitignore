@@ -1,9 +1,14 @@
 # Dependencies
 node_modules/
 
-# Environment
+# Environment - SICUREZZA: non committare MAI le chiavi API
+.env
 .env.local
 .env.development
+.env.production
+vertex-credentials.json
+*-credentials.json
+config/vertex-credentials.json
 
 # Database
 data/*.db
@@ -30,3 +35,8 @@ test-*.js
 
 # Archives
 *.zip
+
+# Build artifacts
+smileagent/
+dist/
+build/
