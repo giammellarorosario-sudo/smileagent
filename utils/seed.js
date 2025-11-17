@@ -1,10 +1,13 @@
 const bcrypt = require('bcryptjs');
 const { db, initializeDatabase } = require('../config/database');
 
-console.log('🌱 Avvio seeding database SmileAgent...\n');
+function runSeed() {
+  console.log('🌱 Avvio seeding database SmileAgent...\n');
 
-// Inizializza schema
-initializeDatabase();
+  // Inizializza schema (solo se eseguito standalone)
+  if (require.main === module) {
+    initializeDatabase();
+  }
 
 // Helper per generare date random
 const randomDate = (start, end) => {
@@ -350,4 +353,16 @@ console.log('   Email: studio@dentalrossi.it');
 console.log('   Password: demo123');
 console.log('\n✅ Database pronto per il testing!');
 
-db.close();
+  // Chiudi database SOLO se eseguito standalone
+  if (require.main === module) {
+    db.close();
+  }
+}
+
+// Esporta funzione
+module.exports = runSeed;
+
+// Esegui se chiamato direttamente
+if (require.main === module) {
+  runSeed();
+}

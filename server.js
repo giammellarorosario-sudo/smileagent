@@ -29,11 +29,12 @@ initializeDatabase();
 
 // Auto-seed se database vuoto (primo avvio)
 const db = require('./config/database').db;
+const runSeed = require('./utils/seed');
 try {
   const studioCount = db.prepare('SELECT COUNT(*) as count FROM studios').get();
   if (studioCount.count === 0) {
     console.log('🌱 Database vuoto - esecuzione seed automatico...');
-    require('./utils/seed');
+    runSeed();
     console.log('✅ Seed completato! Credenziali: studio@dentalrossi.it / demo123');
   } else {
     console.log(`✅ Database già popolato (${studioCount.count} studi trovati)`);
