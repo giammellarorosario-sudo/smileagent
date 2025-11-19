@@ -1,0 +1,191 @@
+================================================================================
+  🚀 QUICK START: BACKEND OVERNIGHT SESSION
+================================================================================
+
+STEP 1: Copy and paste the BACKEND MASTERPROMPT into Claude Code
+────────────────────────────────────────────────────────────────────────────
+
+[Open .claude/prompts/backend-elite-cached.md and copy ALL content]
+
+Or use this command:
+  cat .claude/prompts/backend-elite-cached.md
+
+Paste the entire content as your first message in Claude Code.
+
+
+STEP 2: Answer Claude's Questions
+────────────────────────────────────────────────────────────────────────────
+
+Claude will ask: "🌙 OVERNIGHT MODE (YOLO) ACTIVATION?"
+
+Your answer: YES
+
+
+STEP 3: Provide Your Task
+────────────────────────────────────────────────────────────────────────────
+
+Claude will ask: "What backend system should I build for you?"
+
+TEMPLATE - Fill in the blanks:
+────────────────────────────────────────────────────────────────────────────
+Task: [YOUR TASK DESCRIPTION]
+
+Success Criteria:
+- All tests passing (>85% coverage)
+- API fully documented (OpenAPI/Swagger)
+- Security hardened (OWASP checklist passed)
+- Production-ready deployment
+
+Tech Stack Preference (optional):
+- Language: [Node.js / Python / Go]
+- Database: [PostgreSQL / MongoDB / Redis]
+- Framework: [Express / FastAPI / Gin]
+────────────────────────────────────────────────────────────────────────────
+
+
+EXAMPLE OVERNIGHT TASKS (Copy one or customize):
+────────────────────────────────────────────────────────────────────────────
+
+Example 1: Payment API
+────────────────────────────────────────────────────────────────────────────
+Task: Build complete payment API with Stripe integration
+
+Features:
+- POST /api/payments/checkout - Create checkout session
+- POST /api/webhooks/stripe - Handle payment events
+- GET /api/payments/:id - Retrieve payment details
+- POST /api/subscriptions - Create/manage subscriptions
+- Idempotency keys for payment safety
+- Webhook signature verification
+
+Success Criteria:
+- All tests passing (>85% coverage)
+- Full OpenAPI documentation
+- Security: No hardcoded secrets, input validation, rate limiting
+- Integration tests with Stripe test mode
+
+Tech Stack: Node.js + Express + PostgreSQL + Stripe SDK
+────────────────────────────────────────────────────────────────────────────
+
+Example 2: User Authentication System
+────────────────────────────────────────────────────────────────────────────
+Task: Build production-grade user authentication API
+
+Features:
+- POST /api/auth/signup - Register new user (email + password)
+- POST /api/auth/login - Login with JWT tokens
+- POST /api/auth/refresh - Refresh access token
+- POST /api/auth/forgot-password - Send reset email
+- POST /api/auth/reset-password - Reset with token
+- GET /api/auth/me - Get current user profile
+- Rate limiting on sensitive endpoints
+
+Success Criteria:
+- Password hashing with bcrypt
+- JWT access tokens (15 min) + refresh tokens (7 days)
+- Email verification flow
+- >90% test coverage
+- OpenAPI spec complete
+
+Tech Stack: Python + FastAPI + PostgreSQL + Redis (tokens)
+────────────────────────────────────────────────────────────────────────────
+
+Example 3: Real-Time Chat API
+────────────────────────────────────────────────────────────────────────────
+Task: Build WebSocket-based chat API with message persistence
+
+Features:
+- WebSocket connection management
+- POST /api/chats - Create new chat room
+- GET /api/chats/:id/messages - Get message history (paginated)
+- WebSocket events: message.send, message.received, typing.start, typing.stop
+- Message persistence in database
+- User presence tracking (online/offline)
+
+Success Criteria:
+- Handle 100+ concurrent connections
+- Message delivery guarantees
+- >85% test coverage (unit + integration)
+- Full API documentation
+
+Tech Stack: Node.js + Socket.IO + MongoDB + Redis (presence)
+────────────────────────────────────────────────────────────────────────────
+
+Example 4: Automated Email Pipeline
+────────────────────────────────────────────────────────────────────────────
+Task: Build email automation system with templates and scheduling
+
+Features:
+- POST /api/emails/send - Send immediate email
+- POST /api/emails/schedule - Schedule future email
+- GET /api/templates - List email templates
+- POST /api/templates - Create new template
+- GET /api/emails/:id/status - Track delivery status
+- Webhook for delivery/open/click events
+
+Success Criteria:
+- Integration with SendGrid/Mailgun
+- Template variables ({{name}}, {{link}})
+- Cron job for scheduled emails
+- >85% test coverage
+- Rate limiting (avoid spam)
+
+Tech Stack: Python + FastAPI + PostgreSQL + Celery + Redis
+────────────────────────────────────────────────────────────────────────────
+
+
+STEP 4: Set Alarms (Recommended)
+────────────────────────────────────────────────────────────────────────────
+
+Use Free Alarm Clock or Windows Task Scheduler:
+
+22:00 - Start overnight session
+00:00 - Check token count (optional)
+02:00 - Check token count (optional)
+04:00 - CRITICAL: Check if approaching 120k tokens
+06:00 - Wake up, review results
+
+
+STEP 5: Go to Sleep! 💤
+────────────────────────────────────────────────────────────────────────────
+
+Claude will:
+✅ Work autonomously for 6-8 hours
+✅ Write tests FIRST (TDD)
+✅ Commit only when tests pass (overnight-dev enforced)
+✅ Debug and retry until green ✅
+✅ Document everything (OpenAPI, code comments)
+
+
+MORNING REVIEW (06:00):
+────────────────────────────────────────────────────────────────────────────
+
+# How many commits overnight?
+git log --oneline --since="yesterday" | wc -l
+
+# What was changed?
+git log --oneline --since="yesterday"
+
+# All tests passing?
+npm test  # or pytest, cargo test, go test
+
+# View API documentation
+open http://localhost:3000/api-docs  # If Swagger/OpenAPI setup
+
+Expected Results:
+- 20-50 commits (depends on task complexity)
+- All tests passing (>85% coverage)
+- Complete API documentation
+- Production-ready code
+
+
+TIPS:
+────────────────────────────────────────────────────────────────────────────
+
+✅ Be specific in task description (clear = better results)
+✅ Mention tech stack if you have preference
+✅ Include success criteria (tests, docs, security)
+✅ Overnight Mode YES for autonomous work
+✅ Keep conversation active (<4 min) to maintain prompt cache
+
+🚀 Ready to launch your overnight backend session!

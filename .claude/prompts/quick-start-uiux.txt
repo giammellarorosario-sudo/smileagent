@@ -1,0 +1,252 @@
+================================================================================
+  🎨 QUICK START: UI/UX OVERNIGHT SESSION
+================================================================================
+
+STEP 1: Copy and paste the UI/UX MASTERPROMPT into Claude Code
+────────────────────────────────────────────────────────────────────────────
+
+[Open .claude/prompts/uiux-elite-cached.md and copy ALL content]
+
+Or use this command:
+  cat .claude/prompts/uiux-elite-cached.md
+
+Paste the entire content as your first message in Claude Code.
+
+
+STEP 2: Answer Claude's Questions
+────────────────────────────────────────────────────────────────────────────
+
+Claude will ask: "🌙 OVERNIGHT MODE (YOLO) ACTIVATION?"
+
+Your answer: YES
+
+
+STEP 3: Provide Your UI/UX Task
+────────────────────────────────────────────────────────────────────────────
+
+Claude will ask: "What UI/UX should I design and build for you?"
+
+TEMPLATE - Fill in the blanks:
+────────────────────────────────────────────────────────────────────────────
+Task: [YOUR UI/UX DESCRIPTION]
+
+Target Pages/Components:
+- [Page 1: Description]
+- [Page 2: Description]
+- [Component 1: Description]
+
+Design Preferences (optional):
+- Style: [Modern / Minimal / Playful / Corporate]
+- Colors: [Blue/Purple/Green or specific hex codes]
+- Dark Mode: [Yes / No]
+
+Success Criteria:
+- Responsive (mobile/tablet/desktop)
+- Lighthouse Accessibility ≥90
+- Storybook complete for all components
+- Fast load times (<3s FCP)
+────────────────────────────────────────────────────────────────────────────
+
+
+EXAMPLE OVERNIGHT TASKS (Copy one or customize):
+────────────────────────────────────────────────────────────────────────────
+
+Example 1: SaaS Admin Dashboard
+────────────────────────────────────────────────────────────────────────────
+Task: Build complete SaaS admin dashboard with analytics
+
+Pages & Components:
+- Dashboard page with KPI cards (Revenue, Users, MRR, Churn)
+- Line chart for revenue trends (last 30 days)
+- Data table: Users list (sortable, filterable, paginated)
+- Sidebar navigation (Dashboard, Users, Analytics, Settings)
+- Top navbar (search, notifications, user dropdown)
+- Dark mode toggle
+
+Design Preferences:
+- Style: Modern, clean, professional
+- Colors: Blue primary (#3B82F6), neutral grays
+- Dark Mode: Yes (toggle in navbar)
+
+Tech Stack: React + Next.js + Tailwind CSS + Recharts
+
+Success Criteria:
+- Fully responsive (320px mobile to 1920px desktop)
+- Lighthouse: Accessibility ≥90, Performance ≥85
+- Storybook with all components (Button, Card, Chart, Table, Sidebar)
+- Keyboard navigation works perfectly
+────────────────────────────────────────────────────────────────────────────
+
+Example 2: User Onboarding Flow (Multi-Step)
+────────────────────────────────────────────────────────────────────────────
+Task: Create engaging 5-step user onboarding with animations
+
+Steps:
+1. Welcome - Hero message + "Get Started" CTA
+2. Profile - Name, email, photo upload
+3. Preferences - Timezone, language, notifications
+4. Team Invite - Email invites with role selection
+5. Success - Confetti animation + "Go to Dashboard" button
+
+Features:
+- Progress bar (Step X/5)
+- "Back" and "Continue" buttons (disabled until valid)
+- Skip option (except required steps 1-2)
+- Smooth page transitions (Framer Motion)
+- Save progress (continue later)
+
+Design: Modern, playful illustrations, primary color purple
+
+Success Criteria:
+- Mobile-first responsive
+- Form validation with helpful errors
+- Accessibility: keyboard nav + screen reader friendly
+- Storybook for each step component
+────────────────────────────────────────────────────────────────────────────
+
+Example 3: Landing Page (Marketing)
+────────────────────────────────────────────────────────────────────────────
+Task: Design and build high-converting SaaS landing page
+
+Sections:
+- Hero: Headline + subheadline + CTA + hero image
+- Features: 3-column grid with icons + descriptions
+- Pricing: 3 tiers (Free, Pro, Enterprise) with feature comparison
+- Testimonials: Customer quotes with photos (carousel)
+- FAQ: Accordion-style (10 common questions)
+- Footer: Links, social icons, newsletter signup
+
+Design Preferences:
+- Style: Modern, trustworthy, tech-forward
+- Colors: Gradient primary (blue to purple)
+- Animations: Scroll-triggered fade-ins (subtle)
+
+Tech Stack: Next.js + Tailwind + Framer Motion
+
+Success Criteria:
+- Fast load (<2s FCP)
+- Perfect Lighthouse scores (all ≥90)
+- Responsive across all devices
+- SEO optimized (meta tags, semantic HTML)
+────────────────────────────────────────────────────────────────────────────
+
+Example 4: Settings Page (Multi-Tab)
+────────────────────────────────────────────────────────────────────────────
+Task: Build comprehensive settings page for SaaS app
+
+Tabs:
+- Profile: Name, email, photo, bio, timezone
+- Security: Change password, 2FA toggle, active sessions
+- Billing: Current plan, payment method, invoices table
+- Notifications: Email/SMS/Push preferences (checkboxes)
+- Team: Team members table, invite modal, role management
+- Integrations: Connected apps (Slack, GitHub, etc.) with toggle buttons
+
+Features:
+- Tab navigation (URL updates: /settings/profile)
+- Form auto-save (every 2 seconds on change)
+- Toast notifications ("Changes saved ✅")
+- Danger zone: Delete account (confirmation modal)
+
+Design: Clean, organized, easy to scan
+
+Success Criteria:
+- Responsive layout
+- Accessibility: proper labels, keyboard nav
+- Storybook for all form components
+- Loading states + error handling
+────────────────────────────────────────────────────────────────────────────
+
+Example 5: Data Table with Advanced Features
+────────────────────────────────────────────────────────────────────────────
+Task: Build production-grade data table component
+
+Features:
+- Column sorting (asc/desc, multi-column)
+- Global search + per-column filters
+- Pagination (10/25/50/100 per page)
+- Row selection (checkboxes, bulk actions)
+- Export to CSV/PDF
+- Responsive: stacked cards on mobile, table on desktop
+- Virtual scrolling for 10k+ rows
+- Column visibility toggle
+
+Example Data: User list (name, email, status, created date, actions)
+
+Bulk Actions: Delete, Export, Change status
+
+Design: Modern, data-dense but readable
+
+Tech Stack: React + TanStack Table + Tailwind
+
+Success Criteria:
+- Handles 10,000 rows smoothly
+- Keyboard navigation (arrow keys, Enter)
+- Accessibility: screen reader announces table structure
+- Storybook with mock data
+────────────────────────────────────────────────────────────────────────────
+
+
+STEP 4: Set Alarms (Recommended)
+────────────────────────────────────────────────────────────────────────────
+
+Use Free Alarm Clock or Windows Task Scheduler:
+
+22:00 - Start overnight session
+00:00 - Check token count (optional)
+02:00 - Check token count (optional)
+04:00 - CRITICAL: Check if approaching 120k tokens
+06:00 - Wake up, review designs
+
+
+STEP 5: Go to Sleep! 💤
+────────────────────────────────────────────────────────────────────────────
+
+Claude will:
+✅ Build responsive UI autonomously
+✅ Implement accessibility (WCAG AA)
+✅ Create Storybook documentation
+✅ Test on mobile/tablet/desktop
+✅ Optimize performance (<3s load)
+✅ Add smooth animations
+
+
+MORNING REVIEW (06:00):
+────────────────────────────────────────────────────────────────────────────
+
+# How many commits overnight?
+git log --oneline --since="yesterday" | wc -l
+
+# What UI was built?
+git log --oneline --since="yesterday"
+
+# Launch Storybook
+npm run storybook
+# Opens http://localhost:6006 - Browse all components
+
+# Test in browser
+npm run dev
+# Visit pages built overnight
+
+# Run Lighthouse audit
+npm run build
+npx lighthouse http://localhost:3000 --view
+
+Expected Results:
+- 30-60 commits (components + pages)
+- Lighthouse: Accessibility ≥90, Performance ≥85
+- Responsive on all devices (test Chrome DevTools)
+- Storybook complete with component variants
+
+
+TIPS:
+────────────────────────────────────────────────────────────────────────────
+
+✅ Provide specific design preferences (colors, style)
+✅ List exact pages/components needed
+✅ Mention if dark mode required
+✅ Include accessibility requirements
+✅ Overnight Mode YES for autonomous design work
+✅ Keep conversation active (<4 min) to maintain prompt cache
+
+🎨 Ready to wake up to beautiful UI!
