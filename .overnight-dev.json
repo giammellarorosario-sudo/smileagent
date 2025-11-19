@@ -1,0 +1,11 @@
+{
+  "testCommand": "node test-hooks.js",
+  "lintCommand": "echo '✓ Linting skipped (no linter configured yet)'",
+  "requireCoverage": false,
+  "minCoverage": 80,
+  "autoFix": false,
+  "maxAttempts": 50,
+  "stopOnMorning": true,
+  "morningHour": 7,
+  "logFile": ".overnight-dev-log.txt"
+}
