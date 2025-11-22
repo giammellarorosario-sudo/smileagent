@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: smileagent
+    env: node
+    region: frankfurt
+    plan: free
+    buildCommand: cd smileagent-app && npm install
+    startCommand: cd smileagent-app && npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3000
+      - key: SESSION_SECRET
+        generateValue: true
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: GOOGLE_CLIENT_ID
+        sync: false
+      - key: GOOGLE_CLIENT_SECRET
+        sync: false
+      - key: RATE_LIMIT_PER_MINUTE
+        value: 10
+      - key: RATE_LIMIT_PER_DAY
+        value: 1000
