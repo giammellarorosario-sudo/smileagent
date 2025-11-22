@@ -1,0 +1,35 @@
+# Documentation and notes
+*.txt
+*.md
+!README.md
+!smileagent-app/README.md
+
+# Screenshots and images (except logos in app)
+*.png
+!smileagent-app/public/images/*.png
+
+# Archives and backups
+*.zip
+smileagent-deploy/
+stitch_smileagent/
+
+# Test files
+test-*.js
+check-*.js
+fix-*.js
+
+# Scripts and batch files
+*.bat
+*.ps1
+
+# Credentials and secrets
+*.json
+!smileagent-app/package*.json
+!smileagent-app/public/**/*.json
+
+# Temporary files
+cookies.txt
+nul
+
+# Claude settings
+.claude/settings.local.json

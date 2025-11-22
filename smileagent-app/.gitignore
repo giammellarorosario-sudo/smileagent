@@ -1,0 +1,42 @@
+# Dependencies
+node_modules/
+
+# Environment - SICUREZZA: non committare MAI le chiavi API
+.env
+.env.local
+.env.development
+.env.production
+vertex-credentials.json
+*-credentials.json
+config/vertex-credentials.json
+
+# Database
+data/*.db
+data/*.db-journal
+
+# Logs
+*.log
+logs/
+
+# Uploads
+uploads/*
+!uploads/.gitkeep
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Test files
+test-*.js
+
+# Archives
+*.zip
+
+# Build artifacts
+smileagent/
+dist/
+build/

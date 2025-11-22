@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <%- include('../partials/head') %>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark">
+<div class="flex items-center justify-center min-h-screen">
+  <div class="text-center max-w-md">
+    <span class="material-symbols-outlined text-red-500" style="font-size: 120px;">error</span>
+    <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">Si è verificato un errore</h1>
+    <p class="text-gray-600 dark:text-gray-400 mb-8"><%= error %></p>
+    <a href="/dashboard" class="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary/90 transition">
+      <span class="material-symbols-outlined">refresh</span>
+      Riprova
+    </a>
+  </div>
+</div>
+</body>
+</html>

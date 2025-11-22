@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="it" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.20/dist/full.min.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+</head>
+<body class="bg-gray-50 dark:bg-gray-900">
+
+  <div class="flex h-screen overflow-hidden">
+    <%- include('../partials/sidebar') %>
+
+    <div class="flex-1 overflow-auto">
+      <main class="p-6">
+        <div class="mb-4">
+          <a href="/analisi" class="btn btn-ghost btn-sm">
+            <span class="material-symbols-outlined">arrow_back</span>
+            Torna alle analisi
+          </a>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <!-- Col 1: Info & Score -->
+          <div class="lg:col-span-1 space-y-4">
+            <!-- Score Card -->
+            <div class="card bg-white dark:bg-gray-800 shadow-lg">
+              <div class="card-body items-center text-center">
+                <h3 class="card-title">Score Salute Orale</h3>
+                <div class="radial-progress text-4xl mt-4 <%= analisi.score_salute >= 70 ? 'text-success' : analisi.score_salute >= 50 ? 'text-warning' : 'text-error' %>"
+                     style="--value:<%= analisi.score_salute || 0 %>; --size:12rem; --thickness:1rem;">
+                  <%= analisi.score_salute || 0 %>
+                </div>
+                <p class="text-sm text-gray-500 mt-2">
+                  <%= analisi.reportData ? analisi.reportData.sintesi : 'Analisi in corso...' %>
+                </p>
+              </div>
+            </div>
+
+            <!-- Info Card -->
+            <div class="card bg-white dark:bg-gray-800 shadow-lg">
+              <div class="card-body">
+                <h3 class="card-title text-sm">Dettagli Analisi</h3>
+                <div class="text-sm space-y-2">
+                  <div><strong>ID:</strong> #<%= analisi.id %></div>
+                  <div><strong>Data:</strong> <%= new Date(analisi.data_creazione).toLocaleString('it-IT') %></div>
+                  <% if (analisi.paziente_nome) { %>
+                    <div><strong>Paziente:</strong> <%= analisi.paziente_nome %> <%= analisi.paziente_cognome %></div>
+                  <% } %>
+                  <div><strong>Immagini:</strong> <%= immagini.length %></div>
+                  <div><strong>Token usati:</strong> <%= analisi.tokens_vision_usati || 0 %></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Col 2-3: Risultati -->
+          <div class="lg:col-span-2 space-y-4">
+            <!-- Immagini Caricate -->
+            <div class="card bg-white dark:bg-gray-800 shadow-lg">
+              <div class="card-body">
+                <h3 class="card-title">Immagini Analizzate</h3>
+                <div class="grid grid-cols-2 gap-4 mt-4">
+                  <% immagini.forEach(img => { %>
+                    <%
+                      // Fix path: rimuovi path assoluto e converti in relativo
+                      let imgPath = img.file_path.replace(/\\/g, '/');
+                      if (imgPath.includes('C:/') || imgPath.includes('Users/')) {
+                        imgPath = imgPath.replace(/.*uploads\//, 'uploads/');
+                      }
+                      // Assicurati che inizi con /
+                      if (!imgPath.startsWith('/')) {
+                        imgPath = '/' + imgPath;
+                      }
+                    %>
+                    <img src="<%= imgPath %>" class="w-full h-48 object-cover rounded" alt="Radiografia">
+                  <% }); %>
+                </div>
+              </div>
+            </div>
+
+            <!-- Problemi Rilevati -->
+            <% if (analisi.problemiArray && analisi.problemiArray.length > 0) { %>
+              <div class="card bg-white dark:bg-gray-800 shadow-lg">
+                <div class="card-body">
+                  <h3 class="card-title">⚠️ Problemi Rilevati (<%= analisi.problemiArray.length %>)</h3>
+                  <div class="space-y-3 mt-4">
+                    <% analisi.problemiArray.forEach(p => { %>
+                      <div class="alert <%= p.gravita === 'alta' ? 'alert-error' : p.gravita === 'media' ? 'alert-warning' : 'alert-info' %>">
+                        <span class="material-symbols-outlined">warning</span>
+                        <div>
+                          <h4 class="font-bold"><%= p.tipo %> - Dente <%= p.dente %></h4>
+                          <div class="text-sm"><%= p.descrizione %></div>
+                          <div class="badge <%= p.gravita === 'alta' ? 'badge-error' : p.gravita === 'media' ? 'badge-warning' : '' %> mt-1">
+                            Gravità: <%= p.gravita %>
+                          </div>
+                        </div>
+                      </div>
+                    <% }); %>
+                  </div>
+                </div>
+              </div>
+            <% } %>
+
+            <!-- Trattamenti Suggeriti -->
+            <% if (analisi.trattamentiArray && analisi.trattamentiArray.length > 0) { %>
+              <div class="card bg-white dark:bg-gray-800 shadow-lg">
+                <div class="card-body">
+                  <h3 class="card-title">💊 Trattamenti Suggeriti (<%= analisi.trattamentiArray.length %>)</h3>
+                  <div class="overflow-x-auto mt-4">
+                    <table class="table w-full">
+                      <thead>
+                        <tr>
+                          <th>Trattamento</th>
+                          <th>Dente</th>
+                          <th>Priorità</th>
+                          <th>Urgenza</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% analisi.trattamentiArray.forEach(t => { %>
+                          <tr>
+                            <td>
+                              <div class="font-bold"><%= t.nome %></div>
+                              <div class="text-xs text-gray-500"><%= t.descrizione %></div>
+                            </td>
+                            <td><%= t.dente %></td>
+                            <td>
+                              <span class="badge <%= t.priorita === 'urgente' ? 'badge-error' : t.priorita === 'alta' ? 'badge-warning' : 'badge-info' %>">
+                                <%= t.priorita %>
+                              </span>
+                            </td>
+                            <td class="text-sm"><%= t.urgenza %></td>
+                          </tr>
+                        <% }); %>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            <% } %>
+
+            <!-- Consigli Preventivi -->
+            <% if (analisi.reportData && analisi.reportData.consigliPreventivi && analisi.reportData.consigliPreventivi.length > 0) { %>
+              <div class="card bg-white dark:bg-gray-800 shadow-lg">
+                <div class="card-body">
+                  <h3 class="card-title">💡 Consigli Preventivi</h3>
+                  <ul class="list-disc list-inside space-y-2 mt-4">
+                    <% analisi.reportData.consigliPreventivi.forEach(c => { %>
+                      <li class="text-sm"><%= c %></li>
+                    <% }); %>
+                  </ul>
+                </div>
+              </div>
+            <% } %>
+
+            <!-- Immagine 2D Generata (Placeholder) -->
+            <% if (analisi.immagine_2d_url) { %>
+              <div class="card bg-white dark:bg-gray-800 shadow-lg">
+                <div class="card-body">
+                  <h3 class="card-title">🎨 Diagramma Dentale 2D (Placeholder)</h3>
+                  <div class="alert alert-info mt-4">
+                    <span class="material-symbols-outlined">info</span>
+                    <div>
+                      <h4 class="font-bold">Imagen 3 richiede billing attivo</h4>
+                      <p class="text-sm">La generazione immagini 2D sarà disponibile dopo setup Google Cloud con carta</p>
+                      <p class="text-sm mt-2">Free tier: Prime 100 immagini/mese gratuite</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <% } %>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <%- include('../partials/head') %>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark">
+<div class="flex h-screen w-full">
+  <!-- Sidebar Conversazioni -->
+  <aside class="flex h-full w-80 flex-col border-r border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900/50 p-4">
+    <div class="flex flex-col gap-4">
+      <div class="flex items-center gap-3">
+        <div class="bg-primary/20 rounded-full p-2">
+          <span class="material-symbols-outlined text-primary fill">smart_toy</span>
+        </div>
+        <div class="flex flex-col">
+          <h1 class="text-gray-900 dark:text-white text-base font-medium leading-normal">Assistente AI</h1>
+          <p class="text-gray-500 dark:text-gray-400 text-sm font-normal leading-normal">Specializzato Odontoiatria</p>
+        </div>
+      </div>
+
+      <form action="/chat/new" method="POST">
+        <button type="submit" class="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-primary/90 transition-colors">
+          <span class="material-symbols-outlined mr-2">add</span>
+          <span class="truncate">Nuova Chat</span>
+        </button>
+      </form>
+    </div>
+
+    <div class="flex flex-col gap-2 mt-4 flex-1 overflow-y-auto pr-2">
+      <% if (conversazioni.length === 0) { %>
+      <p class="text-gray-500 dark:text-gray-400 text-sm text-center py-8">Nessuna conversazione ancora</p>
+      <% } else { %>
+        <% conversazioni.forEach(conv => { %>
+        <a href="/chat/<%= conv.id %>" class="flex items-center gap-3 px-3 py-2 rounded-lg <%= currentConversazione && currentConversazione.id === conv.id ? 'bg-primary/20 dark:bg-primary/30' : 'hover:bg-gray-100 dark:hover:bg-gray-800' %> cursor-pointer group">
+          <span class="material-symbols-outlined <%= currentConversazione && currentConversazione.id === conv.id ? 'text-primary fill' : 'text-gray-700 dark:text-gray-300' %>">chat_bubble</span>
+          <div class="flex-1 min-w-0">
+            <p class="<%= currentConversazione && currentConversazione.id === conv.id ? 'text-primary dark:text-white' : 'text-gray-700 dark:text-gray-300' %> text-sm font-medium leading-normal truncate">
+              <%= conv.titolo || 'Nuova conversazione' %>
+            </p>
+            <p class="text-xs text-gray-500 dark:text-gray-400"><%= conv.num_messaggi %> messaggi</p>
+          </div>
+        </a>
+        <% }); %>
+      <% } %>
+    </div>
+
+    <div class="flex flex-col gap-2 mt-4 border-t border-gray-200 dark:border-gray-800 pt-4">
+      <a href="/dashboard" class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800">
+        <span class="material-symbols-outlined text-gray-700 dark:text-gray-300">arrow_back</span>
+        <p class="text-gray-700 dark:text-gray-300 text-sm font-medium leading-normal">Torna alla Dashboard</p>
+      </a>
+    </div>
+  </aside>
+
+  <!-- Main Chat Area -->
+  <main class="flex-1 flex flex-col">
+    <% if (currentConversazione) { %>
+    <!-- Header -->
+    <div class="border-b border-gray-200 dark:border-gray-800 p-4 bg-white dark:bg-gray-900">
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 class="text-lg font-bold text-gray-900 dark:text-white"><%= currentConversazione.titolo || 'Nuova conversazione' %></h2>
+          <p class="text-sm text-gray-600 dark:text-gray-400">Assistente AI specializzato in odontoiatria italiana</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Messages -->
+    <div id="chat-messages" class="flex-1 overflow-y-auto p-6 space-y-4 bg-gray-50 dark:bg-gray-900/50">
+      <% if (!messaggi || messaggi.length === 0) { %>
+      <div class="text-center py-12">
+        <span class="material-symbols-outlined text-primary text-6xl mb-4 fill">psychology</span>
+        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Ciao! Sono il tuo Assistente AI</h3>
+        <p class="text-gray-600 dark:text-gray-400 max-w-md mx-auto">
+          Sono specializzato in odontoiatria italiana. Posso aiutarti con consigli clinici, gestione studio,
+          marketing, e molto altro. Cosa vuoi sapere?
+        </p>
+        <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-3 max-w-2xl mx-auto">
+          <button onclick="sendSuggestion('Come gestisco una carie profonda?')" class="p-3 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-primary transition text-left">
+            <p class="text-sm font-medium text-gray-900 dark:text-white">💉 Come gestisco una carie profonda?</p>
+          </button>
+          <button onclick="sendSuggestion('Strategie marketing per nuovo studio')" class="p-3 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-primary transition text-left">
+            <p class="text-sm font-medium text-gray-900 dark:text-white">📈 Strategie marketing per nuovo studio</p>
+          </button>
+          <button onclick="sendSuggestion('Protocollo sterilizzazione strumenti')" class="p-3 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-primary transition text-left">
+            <p class="text-sm font-medium text-gray-900 dark:text-white">🧼 Protocollo sterilizzazione strumenti</p>
+          </button>
+          <button onclick="sendSuggestion('Come gestire paziente ansioso?')" class="p-3 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-primary transition text-left">
+            <p class="text-sm font-medium text-gray-900 dark:text-white">😰 Come gestire paziente ansioso?</p>
+          </button>
+        </div>
+      </div>
+      <% } else { %>
+        <% messaggi.forEach(msg => { %>
+        <div class="flex <%= msg.ruolo === 'user' ? 'justify-end' : 'justify-start' %>">
+          <div class="max-w-[70%] <%= msg.ruolo === 'user' ? 'bg-primary text-white' : 'bg-white dark:bg-gray-800 text-gray-900 dark:text-white' %> rounded-lg p-4 shadow">
+            <% if (msg.ruolo === 'assistant') { %>
+            <div class="flex items-center gap-2 mb-2">
+              <span class="material-symbols-outlined text-primary text-sm fill">smart_toy</span>
+              <span class="text-xs font-medium text-primary">Assistente AI</span>
+            </div>
+            <% } %>
+            <div class="whitespace-pre-wrap"><%= msg.contenuto %></div>
+            <p class="text-xs <%= msg.ruolo === 'user' ? 'text-white/70' : 'text-gray-500 dark:text-gray-400' %> mt-2">
+              <%= new Date(msg.timestamp).toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' }) %>
+            </p>
+          </div>
+        </div>
+        <% }); %>
+      <% } %>
+    </div>
+
+    <!-- Input -->
+    <div class="border-t border-gray-200 dark:border-gray-800 p-4 bg-white dark:bg-gray-900">
+      <form id="chat-form" class="flex gap-3">
+        <input id="message-input" type="text" class="flex-1 rounded-lg border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-primary focus:border-primary" placeholder="Scrivi il tuo messaggio..." required />
+        <button type="submit" id="send-button" class="flex items-center justify-center rounded-lg bg-primary text-white hover:bg-primary/90 px-6 py-3 font-medium transition">
+          <span class="material-symbols-outlined">send</span>
+        </button>
+      </form>
+      <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">
+        Powered by Google Gemini 2.5 Flash - L'AI può commettere errori, verifica sempre le informazioni importanti.
+      </p>
+    </div>
+    <% } else { %>
+    <!-- No conversation selected -->
+    <div class="flex-1 flex items-center justify-center bg-gray-50 dark:bg-gray-900/50">
+      <div class="text-center">
+        <span class="material-symbols-outlined text-gray-300 dark:text-gray-700 text-9xl mb-4">chat</span>
+        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Seleziona una conversazione</h3>
+        <p class="text-gray-600 dark:text-gray-400 mb-6">o creane una nuova per iniziare</p>
+        <form action="/chat/new" method="POST">
+          <button type="submit" class="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary/90 transition">
+            <span class="material-symbols-outlined">add</span>
+            Nuova Conversazione
+          </button>
+        </form>
+      </div>
+    </div>
+    <% } %>
+  </main>
+</div>
+
+<% if (currentConversazione) { %>
+<script>
+  const chatForm = document.getElementById('chat-form');
+  const messageInput = document.getElementById('message-input');
+  const sendButton = document.getElementById('send-button');
+  const chatMessages = document.getElementById('chat-messages');
+
+  function scrollToBottom() {
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+
+  function sendSuggestion(text) {
+    messageInput.value = text;
+    chatForm.dispatchEvent(new Event('submit'));
+  }
+
+  chatForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const message = messageInput.value.trim();
+    if (!message) return;
+
+    // Disable input
+    messageInput.disabled = true;
+    sendButton.disabled = true;
+    sendButton.innerHTML = '<span class="material-symbols-outlined animate-spin">progress_activity</span>';
+
+    // Add user message to UI
+    const userDiv = document.createElement('div');
+    userDiv.className = 'flex justify-end';
+    userDiv.innerHTML = `
+      <div class="max-w-[70%] bg-primary text-white rounded-lg p-4 shadow">
+        <div class="whitespace-pre-wrap">${message}</div>
+        <p class="text-xs text-white/70 mt-2">${new Date().toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' })}</p>
+      </div>
+    `;
+    chatMessages.appendChild(userDiv);
+    messageInput.value = '';
+    scrollToBottom();
+
+    try {
+      const response = await fetch('/chat/<%= currentConversazione.id %>/message', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ message })
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        // Add AI response to UI
+        const aiDiv = document.createElement('div');
+        aiDiv.className = 'flex justify-start';
+        aiDiv.innerHTML = `
+          <div class="max-w-[70%] bg-white dark:bg-gray-800 text-gray-900 dark:text-white rounded-lg p-4 shadow">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="material-symbols-outlined text-primary text-sm fill">smart_toy</span>
+              <span class="text-xs font-medium text-primary">Assistente AI</span>
+            </div>
+            <div class="whitespace-pre-wrap">${data.message}</div>
+            <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">
+              ${new Date().toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' })} • ${data.tokensUsed} tokens
+            </p>
+          </div>
+        `;
+        chatMessages.appendChild(aiDiv);
+        scrollToBottom();
+      } else {
+        alert('Errore: ' + data.error);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('Errore di connessione. Riprova.');
+    } finally {
+      // Re-enable input
+      messageInput.disabled = false;
+      sendButton.disabled = false;
+      sendButton.innerHTML = '<span class="material-symbols-outlined">send</span>';
+      messageInput.focus();
+    }
+  });
+
+  // Auto scroll on load
+  scrollToBottom();
+</script>
+<% } %>
+</body>
+</html>

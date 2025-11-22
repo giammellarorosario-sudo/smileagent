@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <%- include('../partials/head') %>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark">
+<div class="relative flex min-h-screen w-full">
+  <%- include('../partials/sidebar', {currentPage: currentPage, studioNome: studioNome}) %>
+
+  <main class="flex-1 p-8 overflow-y-auto">
+    <div class="max-w-4xl mx-auto">
+      <!-- Header -->
+      <div class="mb-8">
+        <div class="flex items-center gap-4 mb-4">
+          <div class="bg-primary/20 rounded-full p-4">
+            <span class="material-symbols-outlined text-primary text-4xl fill"><%= sectionIcon %></span>
+          </div>
+          <div>
+            <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-2"><%= sectionTitle %></h1>
+            <p class="text-gray-600 dark:text-gray-400"><%= sectionDescription %></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Coming Soon Card -->
+      <div class="bg-white dark:bg-gray-900 rounded-xl p-12 border border-gray-200 dark:border-gray-700 text-center">
+        <div class="mb-6">
+          <span class="material-symbols-outlined text-primary" style="font-size: 80px; font-variation-settings: 'FILL' 1;">construction</span>
+        </div>
+
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+          Funzionalità in Sviluppo
+        </h2>
+
+        <p class="text-gray-600 dark:text-gray-400 mb-8 max-w-2xl mx-auto">
+          Questa sezione è attualmente in fase di sviluppo. L'architettura backend è già pronta,
+          stiamo lavorando per completare l'interfaccia e le funzionalità avanzate.
+        </p>
+
+        <!-- Feature Preview -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+          <% if (currentPage === 'calendario') { %>
+            <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-6 text-left">
+              <span class="material-symbols-outlined text-primary text-2xl mb-2">event</span>
+              <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Calendario Drag & Drop</h3>
+              <p class="text-sm text-gray-600 dark:text-gray-400">Gestione visuale appuntamenti con trascinamento intuitivo</p>
+            </div>
+            <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-6 text-left">
+              <span class="material-symbols-outlined text-primary text-2xl mb-2">notifications_active</span>
+              <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Promemoria Automatici</h3>
+              <p class="text-sm text-gray-600 dark:text-gray-400">Invio SMS/Email automatico 24h prima</p>
+            </div>
+            <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-6 text-left">
+              <span class="material-symbols-outlined text-primary text-2xl mb-2">sync</span>
+              <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Sync Google Calendar</h3>
+              <p class="text-sm text-gray-600 dark:text-gray-400">Sincronizzazione bidirezionale calendario Google</p>
+            </div>
+            <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-6 text-left">
+              <span class="material-symbols-outlined text-primary text-2xl mb-2">event_repeat</span>
+              <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Appuntamenti Ricorrenti</h3>
+              <p class="text-sm text-gray-600 dark:text-gray-400">Gestione automatica controlli periodici</p>
+            </div>
+          <% } else if (currentPage === 'pazienti') { %>
+            <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-6 text-left">
+              <span class="material-symbols-outlined text-primary text-2xl mb-2">person_search</span>
+              <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Ricerca Avanzata</h3>
+              <p class="text-sm text-gray-600 dark:text-gray-400">Filtri multipli e ricerca full-text</p>
+            </div>
+            <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-6 text-left">
+              <span class="material-symbols-outlined text-primary text-2xl mb-2">medical_information</span>
+              <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Cartella Clinica</h3>
+              <p class="text-sm text-gray-600 dark:text-gray-400">Storico completo trattamenti e anamnesi</p>
+            </div>
+            <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-6 text-left">
+              <span class="material-symbols-outlined text-primary text-2xl mb-2">description</span>
+              <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Piano di Cura</h3>
+              <p class="text-sm text-gray-600 dark:text-gray-400">Preventivi e piani terapeutici personalizzati</p>
+            </div>
+            <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-6 text-left">
+              <span class="material-symbols-outlined text-primary text-2xl mb-2">attach_file</span>
+              <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Documenti</h3>
+              <p class="text-sm text-gray-600 dark:text-gray-400">Upload RX, consensi, foto e referti</p>
+            </div>
+          <% } else if (currentPage === 'social') { %>
+            <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-6 text-left">
+              <span class="material-symbols-outlined text-primary text-2xl mb-2">auto_awesome</span>
+              <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Generazione AI</h3>
+              <p class="text-sm text-gray-600 dark:text-gray-400">Post professionali creati dall'AI</p>
+            </div>
+            <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-6 text-left">
+              <span class="material-symbols-outlined text-primary text-2xl mb-2">schedule</span>
+              <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Programmazione</h3>
+              <p class="text-sm text-gray-600 dark:text-gray-400">Calendario editoriale automatico</p>
+            </div>
+            <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-6 text-left">
+              <span class="material-symbols-outlined text-primary text-2xl mb-2">trending_up</span>
+              <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Analytics</h3>
+              <p class="text-sm text-gray-600 dark:text-gray-400">Statistiche engagement e reach</p>
+            </div>
+            <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-6 text-left">
+              <span class="material-symbols-outlined text-primary text-2xl mb-2">share</span>
+              <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Multi-Platform</h3>
+              <p class="text-sm text-gray-600 dark:text-gray-400">Instagram, Facebook, LinkedIn</p>
+            </div>
+          <% } else if (currentPage === 'messaggi') { %>
+            <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-6 text-left">
+              <span class="material-symbols-outlined text-primary text-2xl mb-2">sms</span>
+              <h3 class="font-semibold text-gray-900 dark:text-white mb-2">SMS Automatici</h3>
+              <p class="text-sm text-gray-600 dark:text-gray-400">Promemoria e comunicazioni via SMS</p>
+            </div>
+            <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-6 text-left">
+              <span class="material-symbols-outlined text-primary text-2xl mb-2">email</span>
+              <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Email Marketing</h3>
+              <p class="text-sm text-gray-600 dark:text-gray-400">Newsletter e campagne email</p>
+            </div>
+            <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-6 text-left">
+              <span class="material-symbols-outlined text-primary text-2xl mb-2">campaign</span>
+              <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Campagne Recall</h3>
+              <p class="text-sm text-gray-600 dark:text-gray-400">Richiamo automatico controlli periodici</p>
+            </div>
+            <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-6 text-left">
+              <span class="material-symbols-outlined text-primary text-2xl mb-2">analytics</span>
+              <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Report Invii</h3>
+              <p class="text-sm text-gray-600 dark:text-gray-400">Statistiche aperture e click</p>
+            </div>
+          <% } else if (currentPage === 'analytics') { %>
+            <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-6 text-left">
+              <span class="material-symbols-outlined text-primary text-2xl mb-2">monitoring</span>
+              <h3 class="font-semibold text-gray-900 dark:text-white mb-2">KPI Dashboard</h3>
+              <p class="text-sm text-gray-600 dark:text-gray-400">Metriche chiave in tempo reale</p>
+            </div>
+            <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-6 text-left">
+              <span class="material-symbols-outlined text-primary text-2xl mb-2">show_chart</span>
+              <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Grafici Interattivi</h3>
+              <p class="text-sm text-gray-600 dark:text-gray-400">Visualizzazioni avanzate con Chart.js</p>
+            </div>
+            <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-6 text-left">
+              <span class="material-symbols-outlined text-primary text-2xl mb-2">picture_as_pdf</span>
+              <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Export PDF</h3>
+              <p class="text-sm text-gray-600 dark:text-gray-400">Report mensili scaricabili</p>
+            </div>
+            <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-6 text-left">
+              <span class="material-symbols-outlined text-primary text-2xl mb-2">compare_arrows</span>
+              <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Comparazione</h3>
+              <p class="text-sm text-gray-600 dark:text-gray-400">Confronto periodi e trend</p>
+            </div>
+          <% } else { %>
+            <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-6 text-left">
+              <span class="material-symbols-outlined text-primary text-2xl mb-2">tune</span>
+              <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Configurazioni</h3>
+              <p class="text-sm text-gray-600 dark:text-gray-400">Personalizza ogni aspetto della piattaforma</p>
+            </div>
+            <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-6 text-left">
+              <span class="material-symbols-outlined text-primary text-2xl mb-2">groups</span>
+              <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Gestione Team</h3>
+              <p class="text-sm text-gray-600 dark:text-gray-400">Ruoli, permessi e accessi</p>
+            </div>
+            <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-6 text-left">
+              <span class="material-symbols-outlined text-primary text-2xl mb-2">integration_instructions</span>
+              <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Integrazioni</h3>
+              <p class="text-sm text-gray-600 dark:text-gray-400">API e connettori terze parti</p>
+            </div>
+            <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-6 text-left">
+              <span class="material-symbols-outlined text-primary text-2xl mb-2">receipt</span>
+              <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Fatturazione</h3>
+              <p class="text-sm text-gray-600 dark:text-gray-400">Piano, pagamenti e fatture</p>
+            </div>
+          <% } %>
+        </div>
+
+        <!-- CTA -->
+        <div class="flex gap-4 justify-center">
+          <a href="/dashboard" class="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary/90 transition">
+            <span class="material-symbols-outlined">dashboard</span>
+            Torna alla Dashboard
+          </a>
+          <a href="/chat" class="inline-flex items-center gap-2 px-6 py-3 bg-white dark:bg-gray-800 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition">
+            <span class="material-symbols-outlined fill">smart_toy</span>
+            Prova la Chat AI
+          </a>
+        </div>
+      </div>
+
+      <!-- Roadmap Info -->
+      <div class="mt-8 p-6 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
+        <div class="flex items-start gap-3">
+          <span class="material-symbols-outlined text-blue-600 dark:text-blue-400 text-2xl">info</span>
+          <div>
+            <h3 class="font-semibold text-blue-900 dark:text-blue-300 mb-2">Roadmap Sviluppo</h3>
+            <p class="text-sm text-blue-800 dark:text-blue-400">
+              Questa funzionalità è nella nostra roadmap di sviluppo. L'architettura database è già implementata
+              e pronta. Stiamo lavorando per completare l'interfaccia utente e le funzionalità avanzate.
+            </p>
+            <p class="text-sm text-blue-800 dark:text-blue-400 mt-2">
+              <strong>Tempo stimato:</strong> 2-3 settimane di sviluppo
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+</body>
+</html>

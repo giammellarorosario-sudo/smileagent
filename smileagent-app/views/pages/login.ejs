@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html class="light" lang="it">
+<head>
+  <%- include('../partials/head') %>
+</head>
+<body class="bg-white dark:bg-background-dark font-display">
+<div class="relative flex min-h-screen w-full flex-col">
+<div class="flex-grow w-full">
+<div class="min-h-screen grid grid-cols-1 lg:grid-cols-2">
+<!-- Left Column: Login Form - ELITE MINIMAL -->
+<div class="flex flex-col justify-center items-center p-8 sm:p-12 bg-white dark:bg-background-dark">
+<div class="w-full max-w-md fade-in">
+<!-- Logo - MUCH LARGER -->
+<div class="mb-12 text-center lg:text-left">
+<div class="logo-container justify-center lg:justify-start">
+<img src="/images/logo-robot.png" alt="SmileAgent AI Robot" class="logo-image w-20 h-20 object-contain">
+<div class="flex flex-col">
+<h1 class="logo-text text-3xl font-black">SmileAgent</h1>
+<p class="text-sm text-gray-600 dark:text-gray-400 font-medium">AI per Dentisti</p>
+</div>
+</div>
+</div>
+<!-- Heading -->
+<div class="mb-10 text-center lg:text-left">
+<p class="text-gray-900 dark:text-white text-4xl md:text-5xl font-black leading-tight tracking-tight mb-3">Bentornato!</p>
+<p class="text-gray-600 dark:text-gray-400 text-base leading-relaxed">L'automazione intelligente per il tuo studio dentistico</p>
+</div>
+
+<% if (error === 'credentials') { %>
+<div class="mb-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl flex items-start gap-3">
+<span class="material-symbols-outlined text-red-600 text-xl mt-0.5">error</span>
+<div>
+<p class="font-semibold text-red-900 dark:text-red-200 text-sm">Credenziali non valide</p>
+<p class="text-red-700 dark:text-red-300 text-sm mt-0.5">Email o password non corretti. Riprova.</p>
+</div>
+</div>
+<% } else if (error === 'server') { %>
+<div class="mb-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl flex items-start gap-3">
+<span class="material-symbols-outlined text-red-600 text-xl mt-0.5">error</span>
+<div>
+<p class="font-semibold text-red-900 dark:text-red-200 text-sm">Errore del server</p>
+<p class="text-red-700 dark:text-red-300 text-sm mt-0.5">Si è verificato un errore. Riprova più tardi.</p>
+</div>
+</div>
+<% } %>
+
+<!-- Form - ELITE DESIGN -->
+<form action="/login" method="POST" class="flex flex-col gap-5">
+<!-- Email Field -->
+<div class="form-group">
+<label for="email" class="form-label">Indirizzo Email</label>
+<div class="form-input-wrapper">
+<span class="form-input-icon material-symbols-outlined">mail</span>
+<input
+  id="email"
+  name="email"
+  type="email"
+  class="input w-full h-14 pl-12 pr-4 text-base"
+  placeholder="studio@esempio.it"
+  value="studio@dentalrossi.it"
+  required
+  autocomplete="email"
+/>
+</div>
+</div>
+
+<!-- Password Field -->
+<div class="form-group">
+<label for="password" class="form-label">Password</label>
+<div class="form-input-wrapper">
+<span class="form-input-icon material-symbols-outlined">lock</span>
+<input
+  id="password"
+  name="password"
+  type="password"
+  class="input w-full h-14 pl-12 pr-4 text-base"
+  placeholder="Inserisci la tua password"
+  value="demo123"
+  required
+  autocomplete="current-password"
+/>
+</div>
+</div>
+
+<!-- Submit Button -->
+<button type="submit" class="btn btn-primary w-full h-14 text-base font-bold mt-2 shadow-lg hover:shadow-xl">
+<span>Accedi</span>
+<span class="material-symbols-outlined ml-2">arrow_forward</span>
+</button>
+
+<!-- Demo credentials -->
+<div class="mt-4 text-center text-sm bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 p-4 rounded-xl">
+<div class="flex items-center justify-center gap-2 mb-2">
+<span class="material-symbols-outlined text-blue-600 text-lg">info</span>
+<p class="font-semibold text-blue-900 dark:text-blue-200">Credenziali Demo</p>
+</div>
+<div class="space-y-1 text-blue-800 dark:text-blue-300">
+<p><span class="text-blue-600 dark:text-blue-400 font-medium">Email:</span> <code class="font-mono bg-blue-100 dark:bg-blue-900/40 px-2 py-0.5 rounded">studio@dentalrossi.it</code></p>
+<p><span class="text-blue-600 dark:text-blue-400 font-medium">Password:</span> <code class="font-mono bg-blue-100 dark:bg-blue-900/40 px-2 py-0.5 rounded">demo123</code></p>
+</div>
+</div>
+</form>
+</div>
+</div>
+<!-- Right Column: Branding - ELITE VISUAL -->
+<div class="hidden lg:flex flex-col justify-center items-center p-12 bg-gradient-to-br from-primary/15 via-purple-500/15 to-pink-500/10 relative overflow-hidden">
+<!-- Background Pattern -->
+<div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSA2MCAwIEwgMCAwIDAgNjAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzBkYTJlNyIgc3Ryb2tlLW9wYWNpdHk9IjAuMSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+')] opacity-40"></div>
+
+<div class="relative z-10 text-center max-w-lg fade-in">
+<!-- Large Robot Logo -->
+<div class="mb-8">
+<img src="/images/logo-robot.png" alt="SmileAgent AI Robot" class="w-48 h-48 mx-auto object-contain drop-shadow-2xl">
+</div>
+
+<div class="inline-flex items-center gap-2 px-4 py-2 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm border border-primary/20 rounded-full mb-6">
+<span class="material-symbols-outlined text-primary text-sm fill">auto_awesome</span>
+<span class="text-sm font-semibold text-gray-900 dark:text-white">Powered by AI</span>
+</div>
+
+<h2 class="text-4xl font-black text-gray-900 dark:text-white mb-4 tracking-tight">
+Gestione Studio<br/>
+<span class="gradient-text">Semplificata</span>
+</h2>
+
+<p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-10">
+Risparmia ore ogni settimana con l'automazione AI per il tuo studio dentistico.
+</p>
+
+<!-- Stats Grid -->
+<div class="grid grid-cols-3 gap-6">
+<div class="bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm rounded-2xl p-5 border border-gray-200/50 dark:border-gray-700/50">
+<p class="text-4xl font-black gradient-text mb-1">500+</p>
+<p class="text-xs font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide">Studi attivi</p>
+</div>
+<div class="bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm rounded-2xl p-5 border border-gray-200/50 dark:border-gray-700/50">
+<p class="text-4xl font-black gradient-text mb-1">95%</p>
+<p class="text-xs font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide">Soddisfazione</p>
+</div>
+<div class="bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm rounded-2xl p-5 border border-gray-200/50 dark:border-gray-700/50">
+<p class="text-4xl font-black gradient-text mb-1">20h</p>
+<p class="text-xs font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide">Risparmiate</p>
+</div>
+</div>
+
+<!-- Trust Indicators -->
+<div class="mt-10 flex items-center justify-center gap-6 text-gray-600 dark:text-gray-400 text-sm">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-green-600 text-lg">verified</span>
+<span>GDPR Compliant</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-green-600 text-lg">shield</span>
+<span>Sicuro al 100%</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

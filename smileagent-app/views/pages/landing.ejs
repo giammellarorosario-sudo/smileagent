@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html class="light" lang="it">
+<head>
+  <%- include('../partials/head') %>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display">
+<div class="relative flex h-auto min-h-screen w-full flex-col">
+<div class="layout-container flex h-full grow flex-col">
+<div class="flex flex-1 justify-center py-5">
+<div class="layout-content-container flex flex-col w-full max-w-6xl flex-1">
+<!-- TopNavBar - ELITE PROFESSIONAL -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-gray-100 dark:border-gray-800 px-6 md:px-10 py-4 bg-white/80 dark:bg-background-dark/80 backdrop-blur-xl sticky top-0 z-50 shadow-sm">
+<div class="logo-container">
+<img src="/images/logo-robot.png" alt="SmileAgent AI Robot" class="logo-image w-14 h-14 md:w-16 md:h-16 object-contain">
+<div class="flex flex-col">
+<h2 class="logo-text text-2xl md:text-3xl font-black leading-tight tracking-[-0.02em]">SmileAgent</h2>
+<p class="text-xs text-gray-600 dark:text-gray-400 font-medium tracking-wide">AI per Dentisti</p>
+</div>
+</div>
+<div class="flex flex-1 justify-end gap-8 items-center">
+<div class="hidden md:flex items-center gap-8">
+<a class="nav-link text-sm font-medium transition-all hover:text-primary" href="#features">Funzionalità</a>
+<a class="nav-link text-sm font-medium transition-all hover:text-primary" href="#pricing">Prezzi</a>
+<a class="nav-link text-sm font-medium transition-all hover:text-primary" href="/login">Accedi</a>
+</div>
+<a href="/login" class="btn btn-primary h-11 px-6 text-sm font-bold shadow-md hover:shadow-lg">
+<span>Inizia Gratis</span>
+</a>
+</div>
+</header>
+<main class="flex-grow">
+<!-- Hero Section - ELITE MODERN -->
+<div class="@container py-20 md:py-32">
+<div class="flex flex-col gap-16 px-4 py-10 @[864px]:flex-row @[864px]:items-center fade-in">
+<div class="flex flex-col gap-8 @[480px]:min-w-[400px] @[864px]:justify-center flex-1">
+<div class="flex flex-col gap-6 text-left">
+<div class="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-primary/10 to-purple-500/10 border border-primary/20 rounded-full w-fit">
+<span class="material-symbols-outlined text-primary text-sm fill">auto_awesome</span>
+<span class="text-sm font-semibold text-gray-900 dark:text-white">AI-Powered Dental Platform</span>
+</div>
+<h1 class="text-gray-900 dark:text-white text-5xl md:text-6xl lg:text-7xl font-black leading-[1.1] tracking-[-0.02em]">
+Automatizza il Tuo<br/>
+<span class="gradient-text">Studio Dentistico</span>
+</h1>
+<h2 class="text-gray-600 dark:text-gray-300 text-lg md:text-xl font-normal leading-relaxed max-w-xl">
+Risparmia tempo, acquisisci più pazienti e migliora la comunicazione con la nostra piattaforma AI. Gestiamo appuntamenti, social media e comunicazioni per te.
+</h2>
+</div>
+<div class="flex flex-col sm:flex-row gap-4">
+<a href="/login" class="btn btn-primary h-14 px-8 text-base font-bold shadow-lg hover:shadow-xl inline-flex items-center gap-2">
+<span>Inizia Gratis</span>
+<span class="material-symbols-outlined">arrow_forward</span>
+</a>
+<a href="#features" class="btn h-14 px-8 text-base font-semibold bg-white dark:bg-gray-900 border-2 border-gray-200 dark:border-gray-700 text-gray-900 dark:text-white hover:border-primary inline-flex items-center gap-2">
+<span>Scopri di più</span>
+</a>
+</div>
+<div class="flex items-center gap-8 pt-4">
+<div class="flex items-center gap-2">
+<div class="flex -space-x-2">
+<div class="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-purple-500 border-2 border-white dark:border-gray-900"></div>
+<div class="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 border-2 border-white dark:border-gray-900"></div>
+<div class="w-10 h-10 rounded-full bg-gradient-to-br from-pink-500 to-primary border-2 border-white dark:border-gray-900"></div>
+</div>
+<div class="ml-2">
+<p class="text-sm font-semibold text-gray-900 dark:text-white">500+ studi attivi</p>
+<p class="text-xs text-gray-600 dark:text-gray-400">95% soddisfazione</p>
+</div>
+</div>
+</div>
+</div>
+<div class="w-full bg-gradient-to-br from-primary/20 via-purple-500/20 to-pink-500/10 bg-center bg-no-repeat aspect-video rounded-3xl @[480px]:h-auto @[480px]:min-w-[400px] @[864px]:w-full flex-1 flex items-center justify-center relative overflow-hidden shadow-2xl">
+<div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-purple-500/5 backdrop-blur-3xl"></div>
+<img src="/images/logo-robot.png" alt="SmileAgent AI Robot" class="relative z-10 w-48 h-48 md:w-64 md:h-64 object-contain drop-shadow-2xl">
+</div>
+</div>
+</div>
+<!-- Features - PROFESSIONAL GRID -->
+<div id="features" class="px-4 py-20 md:py-32 @container">
+<div class="flex flex-col gap-6 text-center items-center mb-16 fade-in">
+<div class="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-primary/10 to-purple-500/10 border border-primary/20 rounded-full">
+<span class="material-symbols-outlined text-primary text-sm">stars</span>
+<span class="text-sm font-semibold text-gray-900 dark:text-white">Funzionalità Elite</span>
+</div>
+<h2 class="text-gray-900 dark:text-white text-4xl md:text-5xl font-black tracking-tight">
+Tutto ciò di cui hai bisogno
+</h2>
+<p class="text-gray-600 dark:text-gray-300 text-lg max-w-2xl">
+Scopri come SmileAgent rivoluziona la gestione del tuo studio dentistico con l'intelligenza artificiale
+</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 stagger-children">
+<div class="card card-hover group">
+<div class="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-primary text-2xl fill">smart_toy</span>
+</div>
+<h3 class="text-gray-900 dark:text-white text-xl font-bold mb-2">Chat AI Esperta</h3>
+<p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+Assistente AI specializzato in odontoiatria italiana, sempre pronto ad aiutarti con consigli clinici e gestionali.
+</p>
+</div>
+<div class="card card-hover group">
+<div class="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500/20 to-purple-500/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-purple-600 text-2xl">calendar_month</span>
+</div>
+<h3 class="text-gray-900 dark:text-white text-xl font-bold mb-2">Gestione Appuntamenti</h3>
+<p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+Calendario intelligente con promemoria automatici, riducendo le mancate presentazioni del 70%.
+</p>
+</div>
+<div class="card card-hover group">
+<div class="w-12 h-12 rounded-xl bg-gradient-to-br from-pink-500/20 to-pink-500/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-pink-600 text-2xl">public</span>
+</div>
+<h3 class="text-gray-900 dark:text-white text-xl font-bold mb-2">Social Media Automatico</h3>
+<p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+L'AI genera e programma contenuti professionali per i tuoi canali social, mantenendo i pazienti coinvolti.
+</p>
+</div>
+<div class="card card-hover group">
+<div class="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-500/20 to-orange-500/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-orange-600 text-2xl">analytics</span>
+</div>
+<h3 class="text-gray-900 dark:text-white text-xl font-bold mb-2">Analytics Avanzate</h3>
+<p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+Dashboard completo con KPI, fatturato, pazienti attivi e molto altro per decisioni data-driven.
+</p>
+</div>
+</div>
+</div>
+<!-- CTA Final - PROFESSIONAL -->
+<div class="mx-4 my-20 md:my-32">
+<div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary to-purple-600 p-12 md:p-20 text-center shadow-2xl">
+<div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48cGF0dGVybiBpZD0iZ3JpZCIgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBwYXR0ZXJuVW5pdHM9InVzZXJTcGFjZU9uVXNlIj48cGF0aCBkPSJNIDQwIDAgTCAwIDAgMCA0MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLW9wYWNpdHk9IjAuMSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+')] opacity-30"></div>
+<div class="relative z-10">
+<div class="inline-flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur-sm border border-white/30 rounded-full mb-6">
+<span class="material-symbols-outlined text-white text-sm">rocket_launch</span>
+<span class="text-sm font-semibold text-white">Inizia Oggi</span>
+</div>
+<h2 class="text-white text-4xl md:text-5xl font-black mb-4 tracking-tight">
+Pronto a Trasformare il Tuo Studio?
+</h2>
+<p class="text-white/90 text-lg md:text-xl mt-4 max-w-2xl mx-auto leading-relaxed">
+Unisciti a centinaia di dentisti che hanno già automatizzato il loro studio con SmileAgent. Prova gratuita di 14 giorni, nessuna carta richiesta.
+</p>
+<div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
+<a href="/login" class="btn h-14 px-8 text-base font-bold bg-white text-primary hover:bg-gray-50 shadow-xl hover:shadow-2xl inline-flex items-center gap-2">
+<span>Inizia Gratis</span>
+<span class="material-symbols-outlined">arrow_forward</span>
+</a>
+<a href="#features" class="btn h-14 px-8 text-base font-semibold bg-white/10 backdrop-blur-sm border-2 border-white/30 text-white hover:bg-white/20 inline-flex items-center gap-2">
+<span>Guarda Demo</span>
+<span class="material-symbols-outlined">play_circle</span>
+</a>
+</div>
+<div class="mt-12 flex items-center justify-center gap-8 text-white/80 text-sm">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-lg">check_circle</span>
+<span>14 giorni gratis</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-lg">check_circle</span>
+<span>Nessuna carta</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-lg">check_circle</span>
+<span>Cancella quando vuoi</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer - PROFESSIONAL -->
+<footer class="bg-gray-50 dark:bg-gray-950 border-t border-gray-200 dark:border-gray-800 mt-auto">
+<div class="mx-auto max-w-6xl px-4 py-12">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+<div class="col-span-1 md:col-span-2">
+<div class="logo-container mb-4">
+<img src="/images/logo-robot.png" alt="SmileAgent AI Robot" class="w-12 h-12 object-contain">
+<div class="flex flex-col">
+<h3 class="logo-text text-xl font-black">SmileAgent</h3>
+<p class="text-xs text-gray-600 dark:text-gray-400">AI per Dentisti</p>
+</div>
+</div>
+<p class="text-gray-600 dark:text-gray-400 text-sm max-w-sm leading-relaxed">
+Automatizza il tuo studio dentistico con l'intelligenza artificiale. Gestione appuntamenti, social media e comunicazioni in un'unica piattaforma.
+</p>
+</div>
+<div>
+<h4 class="font-bold text-gray-900 dark:text-white mb-4">Prodotto</h4>
+<ul class="space-y-2">
+<li><a href="#features" class="text-gray-600 dark:text-gray-400 hover:text-primary text-sm transition-colors">Funzionalità</a></li>
+<li><a href="#pricing" class="text-gray-600 dark:text-gray-400 hover:text-primary text-sm transition-colors">Prezzi</a></li>
+<li><a href="/login" class="text-gray-600 dark:text-gray-400 hover:text-primary text-sm transition-colors">Demo</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold text-gray-900 dark:text-white mb-4">Azienda</h4>
+<ul class="space-y-2">
+<li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-primary text-sm transition-colors">Chi siamo</a></li>
+<li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-primary text-sm transition-colors">Contatti</a></li>
+<li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-primary text-sm transition-colors">Privacy</a></li>
+</ul>
+</div>
+</div>
+<div class="border-t border-gray-200 dark:border-gray-800 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+<p class="text-sm text-gray-500 dark:text-gray-400">
+© 2025 SmileAgent. Tutti i diritti riservati.
+</p>
+<div class="flex items-center gap-4">
+<a href="#" class="text-gray-500 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-xl">mail</span>
+</a>
+<a href="#" class="text-gray-500 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-xl">link</span>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

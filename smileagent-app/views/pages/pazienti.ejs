@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <%- include('../partials/head') %>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark">
+<div class="relative flex min-h-screen w-full">
+  <%- include('../partials/sidebar', {currentPage: 'pazienti', studioNome: studioNome}) %>
+
+  <main class="flex-1 p-6 md:p-10 overflow-y-auto bg-gray-50 dark:bg-background-dark">
+    <div class="max-w-7xl mx-auto">
+      <!-- Header - ELITE -->
+      <div class="mb-10 fade-in">
+        <div class="flex items-center justify-between mb-6">
+          <div>
+            <h1 class="text-4xl font-black text-gray-900 dark:text-white mb-2 tracking-tight">Pazienti</h1>
+            <p class="text-gray-600 dark:text-gray-400 text-lg">Gestisci l'anagrafica completa del tuo studio</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <button class="btn h-11 px-5 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-white hover:border-primary inline-flex items-center gap-2 shadow-sm">
+              <span class="material-symbols-outlined text-lg">filter_list</span>
+              <span class="text-sm font-semibold">Filtri</span>
+            </button>
+            <button onclick="openNewPatientModal()" class="btn btn-primary h-11 px-5 text-sm font-bold shadow-md hover:shadow-lg inline-flex items-center gap-2">
+              <span class="material-symbols-outlined text-lg">person_add</span>
+              <span>Nuovo Paziente</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stats Cards - ELITE DESIGN -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10 stagger-children">
+        <!-- Total Pazienti -->
+        <div class="card stat-card group cursor-pointer">
+          <div class="flex items-start justify-between mb-4">
+            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+              <span class="material-symbols-outlined text-primary text-2xl fill">group</span>
+            </div>
+            <div class="badge badge-success">
+              <span class="material-symbols-outlined text-xs mr-1">trending_up</span>
+              Attivi
+            </div>
+          </div>
+          <h3 class="stat-value text-4xl mb-1"><%= stats.totale || 0 %></h3>
+          <p class="text-sm font-medium text-gray-600 dark:text-gray-400">Pazienti Totali</p>
+          <div class="mt-3 pt-3 border-t border-gray-100 dark:border-gray-800">
+            <p class="text-xs text-gray-500 dark:text-gray-500"><%= stats.attivi || 0 %> attivi questo mese</p>
+          </div>
+        </div>
+
+        <!-- Attivi -->
+        <div class="card stat-card group cursor-pointer">
+          <div class="flex items-start justify-between mb-4">
+            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-green-500/20 to-green-500/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+              <span class="material-symbols-outlined text-green-600 text-2xl">check_circle</span>
+            </div>
+            <div class="badge" style="background: rgba(16, 185, 129, 0.1); color: rgb(16, 185, 129);">Verificati</div>
+          </div>
+          <h3 class="stat-value text-4xl mb-1"><%= stats.attivi || 0 %></h3>
+          <p class="text-sm font-medium text-gray-600 dark:text-gray-400">Pazienti Attivi</p>
+          <div class="mt-3 pt-3 border-t border-gray-100 dark:border-gray-800">
+            <p class="text-xs text-gray-500 dark:text-gray-500">Tasso retention: 94%</p>
+          </div>
+        </div>
+
+        <!-- Con Visite -->
+        <div class="card stat-card group cursor-pointer">
+          <div class="flex items-start justify-between mb-4">
+            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500/20 to-blue-500/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+              <span class="material-symbols-outlined text-blue-600 text-2xl">medical_services</span>
+            </div>
+            <div class="badge" style="background: rgba(59, 130, 246, 0.1); color: rgb(37, 99, 235);">In cura</div>
+          </div>
+          <h3 class="stat-value text-4xl mb-1"><%= stats.con_visite || 0 %></h3>
+          <p class="text-sm font-medium text-gray-600 dark:text-gray-400">Con Visite Programmate</p>
+          <div class="mt-3 pt-3 border-t border-gray-100 dark:border-gray-800">
+            <p class="text-xs text-gray-500 dark:text-gray-500">Media visite: 2.3/paziente</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Search Bar - POLISHED -->
+      <div class="card mb-6 fade-in">
+        <form method="GET" action="/pazienti" class="flex gap-3">
+          <div class="flex-1 relative">
+            <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-xl">search</span>
+            <input
+              type="text"
+              name="search"
+              value="<%= search %>"
+              placeholder="Cerca per nome, cognome, email o telefono..."
+              class="w-full pl-12 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary dark:bg-gray-800 dark:text-white transition-all"
+            />
+          </div>
+          <button type="submit" class="btn btn-primary px-6 py-3 text-sm font-bold inline-flex items-center gap-2 hover:shadow-lg transition-all">
+            <span class="material-symbols-outlined text-lg">search</span>
+            <span>Cerca</span>
+          </button>
+          <% if (search) { %>
+            <a href="/pazienti" class="btn h-auto px-6 py-3 border border-gray-300 dark:border-gray-600 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 flex items-center gap-2 transition-all">
+              <span class="material-symbols-outlined text-lg">close</span>
+              <span class="text-sm font-semibold">Reset</span>
+            </a>
+          <% } %>
+        </form>
+      </div>
+
+      <!-- Lista Pazienti - PROFESSIONAL TABLE -->
+      <div class="card fade-in">
+        <div class="flex items-center justify-between mb-6">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+              <span class="material-symbols-outlined text-primary text-xl fill">group</span>
+            </div>
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Anagrafica Pazienti</h2>
+          </div>
+          <% if (pazienti.length > 0) { %>
+          <p class="text-sm text-gray-600 dark:text-gray-400"><%= pazienti.length %> risultati</p>
+          <% } %>
+        </div>
+
+        <% if (pazienti.length === 0) { %>
+          <!-- Empty State - PROFESSIONAL -->
+          <div class="empty-state py-12">
+            <div class="w-20 h-20 rounded-2xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center mx-auto mb-6">
+              <span class="material-symbols-outlined text-gray-400 text-5xl">person_off</span>
+            </div>
+            <h3 class="empty-state-title">
+              <% if (search) { %>
+                Nessun paziente trovato
+              <% } else { %>
+                Nessun paziente registrato
+              <% } %>
+            </h3>
+            <p class="empty-state-description">
+              <% if (search) { %>
+                Nessun risultato per "<strong><%= search %></strong>". Prova con altri termini di ricerca.
+              <% } else { %>
+                Inizia ad aggiungere i tuoi pazienti per gestire l'anagrafica dello studio in modo professionale.
+              <% } %>
+            </p>
+            <% if (!search) { %>
+            <button onclick="openNewPatientModal()" class="btn btn-primary mt-6 inline-flex items-center gap-2">
+              <span class="material-symbols-outlined text-lg">person_add</span>
+              <span>Aggiungi Primo Paziente</span>
+            </button>
+            <% } %>
+          </div>
+        <% } else { %>
+          <div class="overflow-x-auto">
+            <table class="w-full">
+              <thead>
+                <tr class="border-b border-gray-200 dark:border-gray-800">
+                  <th class="text-left py-4 px-4 font-bold text-gray-900 dark:text-white text-sm">PAZIENTE</th>
+                  <th class="text-left py-4 px-4 font-bold text-gray-900 dark:text-white text-sm">CONTATTI</th>
+                  <th class="text-left py-4 px-4 font-bold text-gray-900 dark:text-white text-sm">DATA NASCITA</th>
+                  <th class="text-left py-4 px-4 font-bold text-gray-900 dark:text-white text-sm">ULTIMA VISITA</th>
+                  <th class="text-left py-4 px-4 font-bold text-gray-900 dark:text-white text-sm">STATO</th>
+                  <th class="text-right py-4 px-4 font-bold text-gray-900 dark:text-white text-sm">AZIONI</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% pazienti.forEach(p => {
+                  const dataNascita = p.data_nascita ? new Date(p.data_nascita).toLocaleDateString('it-IT') : 'N/A';
+                  const ultimaVisita = p.data_ultima_visita ? new Date(p.data_ultima_visita).toLocaleDateString('it-IT') : 'Nessuna visita';
+                %>
+                  <tr class="border-b border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-all group">
+                    <td class="py-4 px-4">
+                      <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                          <span class="text-primary font-black text-sm"><%= p.nome.charAt(0) %><%= p.cognome.charAt(0) %></span>
+                        </div>
+                        <div>
+                          <a href="/pazienti/<%= p.id %>" class="font-bold text-gray-900 dark:text-white hover:text-primary transition-colors">
+                            <%= p.cognome %> <%= p.nome %>
+                          </a>
+                          <% if (p.codice_fiscale) { %>
+                            <p class="text-xs text-gray-500 dark:text-gray-500 mt-0.5">CF: <%= p.codice_fiscale %></p>
+                          <% } %>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="py-4 px-4 text-sm">
+                      <% if (p.telefono) { %>
+                        <div class="flex items-center gap-2 mb-1">
+                          <span class="material-symbols-outlined text-gray-400 text-xs">phone</span>
+                          <span class="text-gray-700 dark:text-gray-300"><%= p.telefono %></span>
+                        </div>
+                      <% } %>
+                      <% if (p.email) { %>
+                        <div class="flex items-center gap-2">
+                          <span class="material-symbols-outlined text-gray-400 text-xs">email</span>
+                          <span class="text-gray-600 dark:text-gray-400 text-xs"><%= p.email %></span>
+                        </div>
+                      <% } %>
+                    </td>
+                    <td class="py-4 px-4">
+                      <div class="text-sm text-gray-700 dark:text-gray-300">
+                        <%= dataNascita %>
+                        <% if (p.sesso) { %>
+                          <span class="ml-1 text-gray-500">(<%= p.sesso %>)</span>
+                        <% } %>
+                      </div>
+                    </td>
+                    <td class="py-4 px-4">
+                      <div class="text-sm text-gray-700 dark:text-gray-300"><%= ultimaVisita %></div>
+                    </td>
+                    <td class="py-4 px-4">
+                      <span class="badge <%= p.stato === 'attivo' ? 'badge-success' : 'badge' %> font-medium">
+                        <%= p.stato %>
+                      </span>
+                    </td>
+                    <td class="py-4 px-4 text-right">
+                      <a href="/pazienti/<%= p.id %>" class="inline-flex items-center gap-1 text-primary hover:text-primary-hover transition-colors text-sm font-semibold">
+                        <span class="material-symbols-outlined text-sm">visibility</span>
+                        Dettagli
+                      </a>
+                    </td>
+                  </tr>
+                <% }) %>
+              </tbody>
+            </table>
+          </div>
+        <% } %>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- Modal Nuovo Paziente - POLISHED -->
+<div id="newPatientModal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+  <div class="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto fade-in">
+    <div class="sticky top-0 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 p-6 z-10">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+            <span class="material-symbols-outlined text-primary text-xl">person_add</span>
+          </div>
+          <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Nuovo Paziente</h2>
+        </div>
+        <button onclick="closeNewPatientModal()" class="w-8 h-8 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 flex items-center justify-center transition-colors">
+          <span class="material-symbols-outlined text-gray-500">close</span>
+        </button>
+      </div>
+    </div>
+
+    <form id="newPatientForm" class="p-6 space-y-5">
+      <div class="grid grid-cols-2 gap-4">
+        <div class="form-group">
+          <label class="form-label">Nome <span class="text-red-500">*</span></label>
+          <input type="text" name="nome" required class="input w-full" placeholder="Mario">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Cognome <span class="text-red-500">*</span></label>
+          <input type="text" name="cognome" required class="input w-full" placeholder="Rossi">
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <div class="form-group">
+          <label class="form-label">Data di Nascita</label>
+          <input type="date" name="data_nascita" class="input w-full">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Sesso</label>
+          <select name="sesso" class="input w-full">
+            <option value="">Non specificato</option>
+            <option value="M">Maschio</option>
+            <option value="F">Femmina</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <div class="form-group">
+          <label class="form-label">Telefono</label>
+          <input type="tel" name="telefono" class="input w-full" placeholder="+39 333 123 4567">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input type="email" name="email" class="input w-full" placeholder="mario.rossi@email.it">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Codice Fiscale</label>
+        <input type="text" name="codice_fiscale" maxlength="16" class="input w-full" placeholder="RSSMRA80A01H501Z" style="text-transform: uppercase;">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Indirizzo</label>
+        <input type="text" name="indirizzo" class="input w-full" placeholder="Via Roma 123">
+      </div>
+
+      <div class="grid grid-cols-3 gap-4">
+        <div class="col-span-2 form-group">
+          <label class="form-label">Città</label>
+          <input type="text" name="citta" class="input w-full" placeholder="Milano">
+        </div>
+        <div class="form-group">
+          <label class="form-label">CAP</label>
+          <input type="text" name="cap" maxlength="5" class="input w-full" placeholder="20100">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Note</label>
+        <textarea name="note" rows="3" class="input w-full resize-none" placeholder="Note aggiuntive sul paziente..."></textarea>
+      </div>
+
+      <div class="flex gap-3 pt-4 border-t border-gray-200 dark:border-gray-800">
+        <button type="submit" class="flex-1 btn btn-primary py-3 text-base font-bold">
+          <span class="material-symbols-outlined text-lg mr-2">check</span>
+          Crea Paziente
+        </button>
+        <button type="button" onclick="closeNewPatientModal()" class="px-6 py-3 border border-gray-300 dark:border-gray-600 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 font-semibold transition-all">
+          Annulla
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  function openNewPatientModal() {
+    document.getElementById('newPatientModal').classList.remove('hidden');
+  }
+
+  function closeNewPatientModal() {
+    document.getElementById('newPatientModal').classList.add('hidden');
+    document.getElementById('newPatientForm').reset();
+  }
+
+  // Close modal on escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeNewPatientModal();
+    }
+  });
+
+  // Close modal on backdrop click
+  document.getElementById('newPatientModal').addEventListener('click', (e) => {
+    if (e.target.id === 'newPatientModal') {
+      closeNewPatientModal();
+    }
+  });
+
+  document.getElementById('newPatientForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData);
+
+    const submitBtn = e.target.querySelector('button[type="submit"]');
+    const originalHTML = submitBtn.innerHTML;
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<span class="material-symbols-outlined text-lg mr-2 animate-spin">progress_activity</span>Creazione...';
+
+    try {
+      const res = await fetch('/pazienti/nuovo', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      const result = await res.json();
+
+      if (result.success) {
+        location.reload();
+      } else {
+        alert('Errore: ' + (result.error || 'Errore sconosciuto'));
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalHTML;
+      }
+    } catch (error) {
+      console.error('Errore:', error);
+      alert('Errore di connessione');
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = originalHTML;
+    }
+  });
+</script>
+</body>
+</html>

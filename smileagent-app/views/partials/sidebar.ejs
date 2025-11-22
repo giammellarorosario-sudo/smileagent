@@ -1,0 +1,95 @@
+<aside class="sticky top-0 h-screen flex flex-col bg-white dark:bg-gray-900 border-r border-gray-100 dark:border-gray-800 p-5 font-display w-72 shadow-sm">
+  <div class="flex flex-col gap-6">
+    <!-- Logo - MUCH LARGER & PROFESSIONAL -->
+    <div class="logo-container py-3 px-2">
+      <img src="/images/logo-robot.png" alt="SmileAgent AI Robot" class="logo-image w-16 h-16 object-contain">
+      <div class="flex flex-col">
+        <h1 class="logo-text text-2xl font-black leading-tight">SmileAgent</h1>
+        <p class="text-xs text-gray-600 dark:text-gray-400 font-medium tracking-wide">AI per Dentisti</p>
+      </div>
+    </div>
+
+    <!-- Navigation - REFINED -->
+    <nav class="flex flex-col gap-1 mt-2">
+      <a class="nav-link <%= currentPage === 'dashboard' ? 'active' : '' %> px-4 py-3 rounded-xl group" href="/dashboard">
+        <div class="w-10 h-10 rounded-lg <%= currentPage === 'dashboard' ? 'bg-primary/20' : 'bg-gray-100 dark:bg-gray-800 group-hover:bg-primary/10' %> flex items-center justify-center transition-all">
+          <span class="material-symbols-outlined text-xl <%= currentPage === 'dashboard' ? 'fill text-primary' : 'text-gray-600 dark:text-gray-400' %>">dashboard</span>
+        </div>
+        <p class="text-sm font-semibold leading-normal flex-1">Dashboard</p>
+      </a>
+
+      <a class="nav-link <%= currentPage === 'calendario' ? 'active' : '' %> px-4 py-3 rounded-xl group" href="/calendario">
+        <div class="w-10 h-10 rounded-lg <%= currentPage === 'calendario' ? 'bg-primary/20' : 'bg-gray-100 dark:bg-gray-800 group-hover:bg-primary/10' %> flex items-center justify-center transition-all">
+          <span class="material-symbols-outlined text-xl <%= currentPage === 'calendario' ? 'text-primary' : 'text-gray-600 dark:text-gray-400' %>">calendar_month</span>
+        </div>
+        <p class="text-sm font-semibold leading-normal flex-1">Calendario</p>
+      </a>
+
+      <a class="nav-link <%= currentPage === 'pazienti' ? 'active' : '' %> px-4 py-3 rounded-xl group" href="/pazienti">
+        <div class="w-10 h-10 rounded-lg <%= currentPage === 'pazienti' ? 'bg-primary/20' : 'bg-gray-100 dark:bg-gray-800 group-hover:bg-primary/10' %> flex items-center justify-center transition-all">
+          <span class="material-symbols-outlined text-xl <%= currentPage === 'pazienti' ? 'text-primary' : 'text-gray-600 dark:text-gray-400' %>">group</span>
+        </div>
+        <p class="text-sm font-semibold leading-normal flex-1">Pazienti</p>
+      </a>
+
+      <a class="nav-link <%= currentPage === 'chat' ? 'active' : '' %> px-4 py-3 rounded-xl group" href="/chat">
+        <div class="w-10 h-10 rounded-lg <%= currentPage === 'chat' ? 'bg-primary/20' : 'bg-gray-100 dark:bg-gray-800 group-hover:bg-primary/10' %> flex items-center justify-center transition-all">
+          <span class="material-symbols-outlined text-xl <%= currentPage === 'chat' ? 'fill text-primary' : 'text-gray-600 dark:text-gray-400' %>">smart_toy</span>
+        </div>
+        <p class="text-sm font-semibold leading-normal flex-1">Chat AI</p>
+      </a>
+
+      <a class="nav-link <%= currentPage === 'analisi' ? 'active' : '' %> px-4 py-3 rounded-xl group" href="/analisi">
+        <div class="w-10 h-10 rounded-lg <%= currentPage === 'analisi' ? 'bg-primary/20' : 'bg-gray-100 dark:bg-gray-800 group-hover:bg-primary/10' %> flex items-center justify-center transition-all">
+          <span class="material-symbols-outlined text-xl <%= currentPage === 'analisi' ? 'fill text-primary' : 'text-gray-600 dark:text-gray-400' %>">analytics</span>
+        </div>
+        <p class="text-sm font-semibold leading-normal flex-1">Analisi AI</p>
+      </a>
+
+      <a class="nav-link <%= currentPage === 'messaggi' ? 'active' : '' %> px-4 py-3 rounded-xl group" href="/messaggi">
+        <div class="w-10 h-10 rounded-lg <%= currentPage === 'messaggi' ? 'bg-primary/20' : 'bg-gray-100 dark:bg-gray-800 group-hover:bg-primary/10' %> flex items-center justify-center transition-all">
+          <span class="material-symbols-outlined text-xl <%= currentPage === 'messaggi' ? 'text-primary' : 'text-gray-600 dark:text-gray-400' %>">chat_bubble</span>
+        </div>
+        <p class="text-sm font-semibold leading-normal flex-1">Messaggi</p>
+      </a>
+
+      <a class="nav-link <%= currentPage === 'social' ? 'active' : '' %> px-4 py-3 rounded-xl group" href="/social">
+        <div class="w-10 h-10 rounded-lg <%= currentPage === 'social' ? 'bg-primary/20' : 'bg-gray-100 dark:bg-gray-800 group-hover:bg-primary/10' %> flex items-center justify-center transition-all">
+          <span class="material-symbols-outlined text-xl <%= currentPage === 'social' ? 'text-primary' : 'text-gray-600 dark:text-gray-400' %>">public</span>
+        </div>
+        <p class="text-sm font-semibold leading-normal flex-1">Social Media</p>
+      </a>
+
+      <a class="nav-link <%= currentPage === 'analytics' ? 'active' : '' %> px-4 py-3 rounded-xl group" href="/analytics">
+        <div class="w-10 h-10 rounded-lg <%= currentPage === 'analytics' ? 'bg-primary/20' : 'bg-gray-100 dark:bg-gray-800 group-hover:bg-primary/10' %> flex items-center justify-center transition-all">
+          <span class="material-symbols-outlined text-xl <%= currentPage === 'analytics' ? 'text-primary' : 'text-gray-600 dark:text-gray-400' %>">bar_chart</span>
+        </div>
+        <p class="text-sm font-semibold leading-normal flex-1">Analytics</p>
+      </a>
+    </nav>
+  </div>
+
+  <!-- Bottom Section - REFINED -->
+  <div class="mt-auto flex flex-col gap-2 pt-6">
+    <div class="border-t border-gray-200 dark:border-gray-800 pt-5 pb-3">
+      <div class="px-4 py-2 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
+        <p class="text-xs text-gray-500 dark:text-gray-400 font-medium mb-0.5">Studio</p>
+        <p class="text-sm font-semibold text-gray-900 dark:text-white truncate"><%= studioNome %></p>
+      </div>
+    </div>
+
+    <a class="nav-link px-4 py-3 rounded-xl group" href="/impostazioni">
+      <div class="w-10 h-10 rounded-lg bg-gray-100 dark:bg-gray-800 group-hover:bg-primary/10 flex items-center justify-center transition-all">
+        <span class="material-symbols-outlined text-xl text-gray-600 dark:text-gray-400">settings</span>
+      </div>
+      <p class="text-sm font-semibold leading-normal flex-1">Impostazioni</p>
+    </a>
+
+    <a class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-red-50 dark:hover:bg-red-900/20 transition-all text-gray-600 dark:text-gray-300 hover:text-red-600 group" href="/logout">
+      <div class="w-10 h-10 rounded-lg bg-gray-100 dark:bg-gray-800 group-hover:bg-red-100 dark:group-hover:bg-red-900/30 flex items-center justify-center transition-all">
+        <span class="material-symbols-outlined text-xl">logout</span>
+      </div>
+      <p class="text-sm font-semibold leading-normal flex-1">Esci</p>
+    </a>
+  </div>
+</aside>
